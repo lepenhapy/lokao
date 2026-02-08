@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtualenv
+venv/
+.venv/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime/cache data (mantem base estatica do projeto)
+app/data/pagamentos_mp.json
+app/data/piloto_teste.json
+app/data/mercado_m2_cache.json
+app/data/scraping_cache_m2.json
+
+# Generated graphics
+app/static/grafico_*.png
+app/static/graficos/*.png
+
+# Logs
+*.log

@@ -1,0 +1,30 @@
+{
+  "cidade": "Cuiaba-MT",
+  "fonte": "Base referencial Lokao (atualizacao mensal assistida)",
+  "series": [
+    {
+      "competencia": "2025-11",
+      "economico": 2280.0,
+      "medio": 2960.0,
+      "alto": 3860.0
+    },
+    {
+      "competencia": "2025-12",
+      "economico": 2310.0,
+      "medio": 3010.0,
+      "alto": 3920.0
+    },
+    {
+      "competencia": "2026-01",
+      "economico": 2340.0,
+      "medio": 3060.0,
+      "alto": 3990.0
+    },
+    {
+      "competencia": "2026-02",
+      "economico": 2370.0,
+      "medio": 3110.0,
+      "alto": 4060.0
+    }
+  ]
+}

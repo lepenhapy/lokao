@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Lok&aacute;o - Diagn&oacute;stico Imobili&aacute;rio</title>
+<style>
+:root{
+  --primaria:#1f3c88;
+  --secundaria:#2563eb;
+  --texto:#0f172a;
+  --suave:#64748b;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--texto);
+}
+.hero{
+  background:linear-gradient(130deg,#0f2c66,#1f3c88 55%,#2b5dc0);
+  color:#fff;
+  padding:68px 20px 96px;
+}
+.hero-inner{
+  max-width:1040px;
+  margin:auto;
+}
+.hero h1{
+  font-size:40px;
+  margin:10px 0 12px;
+  max-width:760px;
+}
+.hero p{
+  max-width:760px;
+  line-height:1.55;
+  font-size:18px;
+}
+.hero-note{
+  margin-top:14px;
+  max-width:760px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:14px;
+  line-height:1.45;
+}
+.teste-note{
+  margin-top:12px;
+  max-width:760px;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:14px;
+  line-height:1.45;
+}
+.pill{
+  display:inline-block;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  letter-spacing:.5px;
+}
+.pill .brand{
+  font-size:14px;
+  font-weight:800;
+}
+.row{
+  max-width:1040px;
+  margin:-58px auto 34px;
+  padding:0 14px;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border-radius:14px;
+  box-shadow:0 14px 36px rgba(15,23,42,.08);
+  padding:20px;
+}
+.card h2{
+  margin:0 0 10px;
+  font-size:24px;
+  color:var(--primaria);
+}
+.mini{
+  color:var(--suave);
+  line-height:1.45;
+  font-size:14px;
+}
+.steps{
+  margin:14px 0 0;
+  padding:0;
+  list-style:none;
+}
+.steps li{
+  margin:9px 0;
+  padding:10px 12px;
+  border-radius:10px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  line-height:1.4;
+  font-size:14px;
+}
+.kpi{
+  display:grid;
+  gap:10px;
+}
+.kpi .box{
+  border:1px solid #dbeafe;
+  background:#eff6ff;
+  border-radius:10px;
+  padding:12px;
+}
+.kpi .box strong{
+  display:block;
+  color:var(--primaria);
+  margin-bottom:4px;
+}
+.form-wrap{
+  max-width:1040px;
+  margin:0 auto 30px;
+  padding:0 14px;
+}
+.form-card{
+  background:#fff;
+  border-radius:14px;
+  padding:24px;
+  box-shadow:0 12px 30px rgba(15,23,42,.06);
+}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.field{display:flex;flex-direction:column}
+label{
+  font-weight:600;
+  margin-bottom:6px;
+  font-size:14px;
+}
+input,select{
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  padding:11px 12px;
+  font-size:14px;
+}
+.full{grid-column:1/-1}
+.subline{
+  margin-top:12px;
+  color:var(--suave);
+  font-size:13px;
+}
+.price{
+  margin-top:16px;
+  border:1px solid #bfdbfe;
+  background:#eff6ff;
+  border-radius:10px;
+  padding:12px;
+  line-height:1.5;
+}
+button{
+  margin-top:16px;
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:14px;
+  font-size:17px;
+  font-weight:700;
+  background:var(--primaria);
+  color:#fff;
+  cursor:pointer;
+}
+button:hover{background:#17306c}
+@media (max-width: 920px){
+  .row{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .hero h1{font-size:32px}
+}
+</style>
+<script>
+function toggleFinanciamento(){
+  const box=document.getElementById("financiamentoBox");
+  const check=document.getElementById("financiar");
+  box.style.display=check.checked?"grid":"none";
+}
+function formatarMoeda(campo){
+  let v=campo.value.replace(/\D/g,"");
+  if(!v){campo.value="";return;}
+  v=(v/100).toFixed(2)+"";
+  v=v.replace(".",",");
+  v=v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
+  campo.value="R$ "+v;
+}
+</script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="pill"><span class="brand">LOK&Aacute;O</span> - DIAGN&Oacute;STICO IMOBILI&Aacute;RIO ORIENTADO | CUIAB&Aacute;-MT</span>
+    {% if modo_teste %}
+      <div class="teste-note">
+        <strong>Modo teste ativo (2 dias).</strong> Cada CPF pode gerar 1 relat&oacute;rio gratuito.
+        {% if janela %}
+          Janela: {{ janela.inicio }} at&eacute; {{ janela.fim }}.
+        {% endif %}
+      </div>
+    {% endif %}
+    <h1>Descubra se o bairro combina com seu objetivo e seu or&ccedil;amento antes de assumir risco alto.</h1>
+    <p>
+      O Lok&aacute;o traduz seu cen&aacute;rio em uma leitura t&eacute;cnica clara: compatibilidade
+      urbana, press&atilde;o financeira, riscos ocultos e plano de decis&atilde;o acion&aacute;vel.
+    </p>
+    <p class="hero-note">
+      Em resumo: voc&ecirc; descobre se seu or&ccedil;amento sustenta a compra ou constru&ccedil;&atilde;o,
+      entende riscos antes de assumir compromisso e recebe um plano objetivo para
+      negociar com corretor, banco e t&eacute;cnico.
+    </p>
+  </div>
+</section>
+
+<section class="row">
+  <div class="card">
+    <h2>Como funciona</h2>
+    <p class="mini">
+      Em poucos minutos voc&ecirc; recebe uma an&aacute;lise com linguagem simples e
+      embasamento t&eacute;cnico para apoiar compra, constru&ccedil;&atilde;o ou investimento.
+    </p>
+    <ul class="steps">
+      <li><strong>1) Entrada de cen&aacute;rio:</strong> bairro, or&ccedil;amento, tipologia e objetivo.</li>
+      <li><strong>2) Diagn&oacute;stico:</strong> score urbano, leitura financeira e comparativos.</li>
+      <li><strong>3) A&ccedil;&atilde;o:</strong> sugest&otilde;es estrat&eacute;gicas e relat&oacute;rio PDF profissional.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Valor entregue</h2>
+    <div class="kpi">
+      <div class="box">
+        <strong>Compatibilidade real</strong>
+        Rela&ccedil;&atilde;o entre perfil do bairro, padr&atilde;o desejado e capacidade financeira.
+      </div>
+      <div class="box">
+        <strong>Risco financeiro</strong>
+        Visualiza&ccedil;&atilde;o de comprometimento e folga para decis&atilde;o segura.
+      </div>
+      <div class="box">
+        <strong>Plano de decis&atilde;o</strong>
+        Recomenda&ccedil;&otilde;es pr&aacute;ticas para os pr&oacute;ximos passos com t&eacute;cnicos e bancos.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-wrap">
+  <div class="form-card">
+    <h2 style="margin-top:0;color:#1f3c88">Gerar meu diagn&oacute;stico</h2>
+    <p class="mini">
+      Preencha os dados abaixo. Quanto mais completo, melhor a precis&atilde;o do
+      relat&oacute;rio.
+    </p>
+    <form action="/relatorio" method="{{ 'post' if modo_teste else 'get' }}">
+      {% if modo_teste %}
+      <input type="hidden" name="piloto" value="1">
+      {% endif %}
+      <div class="form-grid">
+        {% if modo_teste %}
+        <div class="field">
+          <label>CPF (somente n&uacute;meros)</label>
+          <input type="text" name="cpf" maxlength="14" required>
+        </div>
+        {% endif %}
+        <div class="field">
+          <label>Seu nome</label>
+          <input type="text" name="nome" required>
+        </div>
+        <div class="field">
+          <label>Bairro de interesse</label>
+          <select name="bairro" required>
+            <option value="">Selecione</option>
+            {% for b in bairros %}
+              <option value="{{ b }}">{{ b }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Tipo de im&oacute;vel</label>
+          <select name="tipo_imovel" required>
+            <option value="Casa nova">Casa nova</option>
+            <option value="Casa usada">Casa usada</option>
+            <option value="Apartamento novo">Apartamento novo</option>
+            <option value="Apartamento usado">Apartamento usado</option>
+            <option value="Terreno">Terreno</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Padr&atilde;o desejado</label>
+          <select name="padrao" required>
+            <option value="">Selecione</option>
+            <option value="economico">Econ&ocirc;mico</option>
+            <option value="medio">M&eacute;dio</option>
+            <option value="alto">Alto padr&atilde;o</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Or&ccedil;amento total</label>
+          <input type="text" name="orcamento" required onkeyup="formatarMoeda(this)">
+        </div>
+        <div class="field">
+          <label>Valor do im&oacute;vel (se souber)</label>
+          <input type="text" name="valor_imovel" onkeyup="formatarMoeda(this)">
+        </div>
+
+        <div class="field">
+          <label>&Aacute;rea pretendida (m&sup2;)</label>
+          <input type="number" name="area">
+        </div>
+        <div class="field">
+          <label>Financiamento</label>
+          <div>
+            <label style="font-weight:500">
+              <input type="checkbox" id="financiar" name="financiar" onclick="toggleFinanciamento()">
+              Pretendo financiar
+            </label>
+          </div>
+        </div>
+
+        <div id="financiamentoBox" class="form-grid full" style="display:none; padding:8px 10px; border:1px dashed #cbd5e1; border-radius:10px;">
+          <div class="field">
+            <label>Tipo de financiamento</label>
+            <select name="tipo_financiamento">
+              <option value="SAC">SAC</option>
+              <option value="PRICE">PRICE</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Prazo</label>
+            <select name="prazo">
+              <option value="360">360 meses</option>
+              <option value="420">420 meses</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Renda mensal aproximada</label>
+            <input type="text" name="renda" onkeyup="formatarMoeda(this)">
+          </div>
+        </div>
+      </div>
+
+      <div class="price">
+        {% if modo_teste %}
+        <strong>Teste piloto: acesso gratuito (1 gera&ccedil;&atilde;o por CPF)</strong><br>
+        O relat&oacute;rio &eacute; liberado para avalia&ccedil;&atilde;o durante a janela de teste.
+        {% else %}
+        <strong>Valor do relat&oacute;rio: R$ 39,90</strong><br>
+        Pagamento &uacute;nico com libera&ccedil;&atilde;o do relat&oacute;rio completo e PDF.
+        {% endif %}
+      </div>
+      <button type="submit">
+        {% if modo_teste %}Gerar relat&oacute;rio gratuito de teste{% else %}Gerar relat&oacute;rio agora{% endif %}
+      </button>
+      <p class="subline">
+        {% if modo_teste %}
+        Conte&uacute;do de teste para valida&ccedil;&atilde;o de usabilidade, layout e valor percebido.
+        {% else %}
+        Conte&uacute;do orientativo com base em dados urbanos e premissas t&eacute;cnicas de mercado.
+        {% endif %}
+      </p>
+    </form>
+  </div>
+</section>
+
+</body>
+</html>

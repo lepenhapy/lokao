@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lok&aacute;o - Teste Piloto</title>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background: #f4f6f8; color: #1f2937; }
+    .wrap { max-width: 980px; margin: 28px auto; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    h1 { margin: 0 0 8px; color: #1f3c88; }
+    .small { color: #6b7280; font-size: 13px; }
+    .box { margin: 12px 0; padding: 12px; border: 1px solid #bfdbfe; border-radius: 10px; background: #eff6ff; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { display: flex; flex-direction: column; }
+    label { font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+    input, select { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+    .full { grid-column: 1 / -1; }
+    button { margin-top: 14px; width: 100%; border: 0; border-radius: 10px; padding: 13px; font-size: 16px; font-weight: 700; background: #1f3c88; color: #fff; cursor: pointer; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+  <script>
+    function toggleFinanciamento(){
+      const box=document.getElementById("financiamentoBox");
+      const check=document.getElementById("financiar");
+      box.style.display=check.checked?"grid":"none";
+    }
+    function formatarMoeda(campo){
+      let v=campo.value.replace(/\D/g,"");
+      if(!v){campo.value="";return;}
+      v=(v/100).toFixed(2)+"";
+      v=v.replace(".",",");
+      v=v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
+      campo.value="R$ "+v;
+    }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Teste Piloto Lok&aacute;o (2 dias)</h1>
+    <p>Use este acesso para testar a experi&ecirc;ncia completa do relat&oacute;rio. Cada CPF pode gerar 1 relat&oacute;rio gratuito.</p>
+    <div class="box">
+      <strong>Janela de teste:</strong>
+      {{ janela.inicio }} at&eacute; {{ janela.fim }}<br>
+      <strong>Status:</strong> {{ "Ativa" if janela.ativo else "Encerrada" }}
+    </div>
+    <p class="small">
+      Seu CPF &eacute; usado somente para valida&ccedil;&atilde;o de acesso &uacute;nico e &eacute; armazenado de forma protegida (hash), sem exposi&ccedil;&atilde;o em texto.
+    </p>
+
+    <form action="/relatorio" method="post">
+      <input type="hidden" name="piloto" value="1">
+      <div class="grid">
+        <div class="field">
+          <label>CPF (somente n&uacute;meros)</label>
+          <input type="text" name="cpf" maxlength="14" required>
+        </div>
+        <div class="field">
+          <label>Seu nome</label>
+          <input type="text" name="nome" required>
+        </div>
+
+        <div class="field">
+          <label>Bairro de interesse</label>
+          <select name="bairro" required>
+            <option value="">Selecione</option>
+            {% for b in bairros %}
+              <option value="{{ b }}">{{ b }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label>Tipo de im&oacute;vel</label>
+          <select name="tipo_imovel" required>
+            <option value="Casa nova">Casa nova</option>
+            <option value="Casa usada">Casa usada</option>
+            <option value="Apartamento novo">Apartamento novo</option>
+            <option value="Apartamento usado">Apartamento usado</option>
+            <option value="Terreno">Terreno</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Padr&atilde;o desejado</label>
+          <select name="padrao" required>
+            <option value="">Selecione</option>
+            <option value="economico">Econ&ocirc;mico</option>
+            <option value="medio">M&eacute;dio</option>
+            <option value="alto">Alto padr&atilde;o</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Or&ccedil;amento total</label>
+          <input type="text" name="orcamento" required onkeyup="formatarMoeda(this)">
+        </div>
+
+        <div class="field">
+          <label>Valor do im&oacute;vel (se souber)</label>
+          <input type="text" name="valor_imovel" onkeyup="formatarMoeda(this)">
+        </div>
+        <div class="field">
+          <label>&Aacute;rea pretendida (m&sup2;)</label>
+          <input type="number" name="area">
+        </div>
+
+        <div class="field full">
+          <label style="font-weight:500">
+            <input type="checkbox" id="financiar" name="financiar" onclick="toggleFinanciamento()">
+            Pretendo financiar
+          </label>
+        </div>
+        <div id="financiamentoBox" class="grid full" style="display:none; border:1px dashed #cbd5e1; border-radius:10px; padding:10px;">
+          <div class="field">
+            <label>Tipo de financiamento</label>
+            <select name="tipo_financiamento">
+              <option value="SAC">SAC</option>
+              <option value="PRICE">PRICE</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Prazo</label>
+            <select name="prazo">
+              <option value="360">360 meses</option>
+              <option value="420">420 meses</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Renda mensal aproximada</label>
+            <input type="text" name="renda" onkeyup="formatarMoeda(this)">
+          </div>
+        </div>
+      </div>
+      <button type="submit">Gerar relat&oacute;rio gratuito de teste</button>
+    </form>
+  </div>
+</body>
+</html>

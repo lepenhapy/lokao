@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lok&aacute;o - Feedback do Piloto</title>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background: #f4f6f8; color: #1f2937; }
+    .wrap { max-width: 860px; margin: 28px auto; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    h1 { margin: 0 0 8px; color: #1f3c88; }
+    .small { color: #6b7280; font-size: 13px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { display: flex; flex-direction: column; }
+    label { font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+    select, textarea, input { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+    textarea { min-height: 110px; resize: vertical; }
+    .full { grid-column: 1 / -1; }
+    button, .btn { margin-top: 14px; border: 0; border-radius: 10px; padding: 12px 14px; font-size: 15px; font-weight: 700; background: #1f3c88; color: #fff; cursor: pointer; text-decoration: none; display: inline-block; }
+    .ok { margin: 12px 0; padding: 12px; border-radius: 10px; border: 1px solid #bbf7d0; background: #f0fdf4; color: #166534; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Feedback do teste piloto</h1>
+    <p class="small">Question&aacute;rio curto para melhorar clareza, utilidade e valor percebido do relat&oacute;rio.</p>
+
+    {% if enviado %}
+      <div class="ok">Feedback registrado com sucesso. Obrigado por contribuir.</div>
+      <a class="btn" href="/piloto">Voltar para p&aacute;gina de teste</a>
+    {% else %}
+      <form action="/piloto/feedback" method="post">
+        <input type="hidden" name="token" value="{{ token }}">
+        <div class="grid">
+          <div class="field">
+            <label>1) Clareza do relat&oacute;rio</label>
+            <select name="clareza" required>
+              <option value="">Selecione</option>
+              <option value="5">5 - Muito clara</option>
+              <option value="4">4 - Clara</option>
+              <option value="3">3 - Mediana</option>
+              <option value="2">2 - Pouco clara</option>
+              <option value="1">1 - Confusa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>2) Utilidade para decidir</label>
+            <select name="utilidade" required>
+              <option value="">Selecione</option>
+              <option value="5">5 - Muito &uacute;til</option>
+              <option value="4">4 - &Uacute;til</option>
+              <option value="3">3 - Razo&aacute;vel</option>
+              <option value="2">2 - Pouco &uacute;til</option>
+              <option value="1">1 - N&atilde;o &uacute;til</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>3) Confian&ccedil;a nas informa&ccedil;&otilde;es</label>
+            <select name="confianca" required>
+              <option value="">Selecione</option>
+              <option value="5">5 - Alta</option>
+              <option value="4">4 - Boa</option>
+              <option value="3">3 - M&eacute;dia</option>
+              <option value="2">2 - Baixa</option>
+              <option value="1">1 - Muito baixa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>4) Nota geral (0 a 10)</label>
+            <input type="number" name="nps" min="0" max="10" required>
+          </div>
+
+          <div class="field">
+            <label>5) Tempo para preencher o cen&aacute;rio</label>
+            <select name="tempo_form" required>
+              <option value="">Selecione</option>
+              <option value="ate_3_min">At&eacute; 3 min</option>
+              <option value="3_6_min">3 a 6 min</option>
+              <option value="6_10_min">6 a 10 min</option>
+              <option value="mais_10_min">Mais de 10 min</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>6) Recomendaria para outra pessoa?</label>
+            <select name="recomendaria" required>
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="talvez">Talvez</option>
+              <option value="nao">N&atilde;o</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>7) Voc&ecirc; usaria este relat&oacute;rio para decis&otilde;es pr&oacute;prias ou para clientes?</label>
+            <select name="uso_relatorio" required>
+              <option value="">Selecione</option>
+              <option value="proprias">Somente decis&otilde;es pr&oacute;prias</option>
+              <option value="clientes">Somente para clientes</option>
+              <option value="ambos">Para os dois cen&aacute;rios</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>8) Em qual etapa o relat&oacute;rio ajudou mais?</label>
+            <select name="etapa_mais_util" required>
+              <option value="">Selecione</option>
+              <option value="triagem_bairro">Triagem de bairro/im&oacute;vel</option>
+              <option value="analise_financeira">An&aacute;lise financeira</option>
+              <option value="conversa_corretor_tecnico">Conversa com corretor/t&eacute;cnico</option>
+              <option value="decisao_final">Decis&atilde;o final</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>9) Qual informa&ccedil;&atilde;o voc&ecirc; sentiu falta?</label>
+            <input type="text" name="info_faltante" maxlength="220">
+          </div>
+
+          <div class="field full">
+            <label>10) Qual foi o maior valor percebido no relat&oacute;rio?</label>
+            <textarea name="valor_percebido" maxlength="400" required></textarea>
+          </div>
+          <div class="field full">
+            <label>11) O que faltou ou precisa melhorar? (cr&iacute;ticas e sugest&otilde;es)</label>
+            <textarea name="faltou_algo" maxlength="600"></textarea>
+          </div>
+        </div>
+        <button type="submit">Enviar feedback</button>
+      </form>
+    {% endif %}
+  </div>
+</body>
+</html>

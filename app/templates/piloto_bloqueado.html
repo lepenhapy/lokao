@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lok&aacute;o - Acesso de Teste</title>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background: #f4f6f8; color: #1f2937; }
+    .box { max-width: 760px; margin: 48px auto; background: #fff; border-radius: 12px; padding: 26px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    h1 { margin: 0 0 8px; color: #1f3c88; }
+    .alert { margin: 12px 0; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe; background: #eff6ff; }
+    .btn { display: inline-block; text-decoration: none; padding: 11px 15px; border-radius: 8px; font-weight: 600; background: #1f3c88; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Acesso de teste indispon&iacute;vel</h1>
+    <div class="alert">
+      {% if motivo == "ja_utilizado" %}
+        Este CPF j&aacute; utilizou a gera&ccedil;&atilde;o gratuita do teste piloto.
+        O bot&atilde;o voltar retorna para a p&aacute;gina de teste com esta informa&ccedil;&atilde;o.
+      {% elif motivo == "cpf_invalido" %}
+        CPF inv&aacute;lido. Revise o n&uacute;mero e tente novamente.
+      {% elif motivo == "janela_encerrada" %}
+        A janela de teste de 2 dias foi encerrada.
+      {% else %}
+        N&atilde;o foi poss&iacute;vel liberar este acesso no momento.
+      {% endif %}
+    </div>
+
+    {% if token_existente %}
+      <p>Se voc&ecirc; j&aacute; gerou o relat&oacute;rio, pode acess&aacute;-lo por este link:</p>
+      <p><a class="btn" href="/relatorio?token={{ token_existente }}">Abrir meu relat&oacute;rio</a></p>
+    {% endif %}
+
+    <p><a class="btn" href="/piloto">Voltar para p&aacute;gina de teste</a></p>
+  </div>
+</body>
+</html>

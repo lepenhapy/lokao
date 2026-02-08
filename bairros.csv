@@ -1,0 +1,121 @@
+bairro,regiao,municipio,ativo,padrao_predominante,categoria_urbana,perfil_socioeconomico,valor_m2_medio,faixa_valor_min,faixa_valor_max,origem_valor,potencial_valorizacao,liquidez_mercado,custo_vida_indireto,risco_urbanistico,percepcao_seguranca,observacoes
+Alphaville I e II,Oeste,Cuiaba,TRUE,alto,premium_fechado,alto,9500,8500,12000,scraping,alto,alta,alto,baixo,alta,"Condomínio fechado de alto padrão, controle de acesso, forte valorização e elevada previsibilidade urbana."
+Jardim das Américas,Leste,Cuiaba,TRUE,alto,consolidado,alto,7800,6500,9000,planilha,medio,alta,alto,medio,media,Bairro valorizado com uso misto e fluxo intenso; furtos pontuais impactam percepção de segurança.
+Bosque da Saúde,Leste,Cuiaba,TRUE,alto,consolidado,alto,8200,7000,9500,estimativa,medio,alta,alto,medio,media,"Região nobre com boa infraestrutura, porém com registros urbanos típicos de bairros centrais."
+Boa Esperança,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5200,4500,6000,estimativa,medio,media,medio,medio,media,"Bairro residencial consolidado, com ocorrências urbanas recorrentes em vias de maior fluxo."
+Jardim Itália,Oeste,Cuiaba,TRUE,alto,premium,alto,8500,7200,10000,estimativa,alto,alta,alto,baixo,alta,"Bairro planejado, perfil residencial moderno e boa percepção de segurança."
+Santa Rosa,Oeste,Cuiaba,TRUE,alto,consolidado,alto,8000,6800,9500,estimativa,medio,alta,alto,baixo,alta,"Região tradicional valorizada, com bom padrão urbano e baixa incidência de ocorrências."
+Duque de Caxias,Centro,Cuiaba,TRUE,medio,consolidado,medio,4800,4000,5500,estimativa,baixo,media,medio,alto,media,Área central com comércio intenso; furtos e ocorrências urbanas impactam conforto.
+Dom Aquino,Sul,Cuiaba,TRUE,medio,consolidado,medio,4500,3800,5200,estimativa,baixo,media,medio,alto,media,Bairro antigo com registros frequentes de ocorrências urbanas e menor previsibilidade.
+Porto,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4600,3900,5300,estimativa,baixo,media,medio,alto,media,"Região próxima ao centro, com infraestrutura presente, mas percepção de segurança reduzida."
+Jardim Paulista,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7600,6500,9000,estimativa,medio,alta,alto,baixo,alta,"Bairro residencial valorizado, boa liquidez e ambiente urbano estável."
+CPA I,Norte,Cuiaba,TRUE,medio,consolidado,medio,4200,3500,5000,planilha,medio,media,medio,medio,media,"Região com grande densidade, comércio ativo e ocorrências urbanas típicas."
+CPA II,Norte,Cuiaba,TRUE,medio,consolidado,medio,4100,3400,4800,planilha,medio,media,medio,medio,media,"Perfil urbano semelhante ao CPA I, exigindo atenção à segurança residencial."
+CPA III,Norte,Cuiaba,TRUE,medio,consolidado,medio,4000,3300,4700,planilha,medio,media,medio,medio,media,"Bairro populoso com boa oferta de serviços, porém com maior exposição urbana."
+Morada da Serra,Norte,Cuiaba,TRUE,medio,consolidado,medio,4300,3600,5100,estimativa,medio,media,medio,medio,media,"Região extensa, heterogênea, com variações significativas de conforto e segurança."
+Jardim Vitória,Norte,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,Bairro popular com infraestrutura limitada e recorrência de ocorrências urbanas.
+Pedra 90,Sul,Cuiaba,TRUE,economico,popular,baixo,2000,1600,2400,estimativa,baixo,baixa,baixo,alto,baixa,"Região de expansão popular, exigindo alto planejamento e atenção à segurança."
+Parque Cuiabá,Sul,Cuiaba,TRUE,medio,consolidado,medio,3800,3200,4500,estimativa,baixo,media,medio,medio,media,Bairro tradicional com uso misto e percepção de segurança intermediária.
+Jardim Florianópolis,Sul,Cuiaba,TRUE,economico,popular,baixo,2100,1700,2500,estimativa,baixo,baixa,baixo,alto,baixa,Região com histórico de ocorrências urbanas e menor liquidez imobiliária.
+Cidade Alta,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4700,4000,5400,estimativa,baixo,media,medio,alto,media,"Área central elevada, com infraestrutura, mas impacto de ocorrências urbanas."
+Planalto,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,Bairro popular com limitações urbanas e maior necessidade de soluções de segurança.
+Centro Norte,Centro,Cuiaba,TRUE,medio,consolidado,medio,5000,4200,5800,estimativa,baixo,media,medio,alto,media,"Região central com comércio intenso e circulação elevada, impactando conforto e segurança."
+Centro Sul,Centro,Cuiaba,TRUE,medio,consolidado,medio,5200,4400,6000,estimativa,baixo,media,medio,alto,media,"Área tradicional com infraestrutura completa, porém maior exposição urbana."
+Jardim Tropical,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7800,6500,9200,estimativa,medio,alta,alto,baixo,alta,"Bairro residencial valorizado, boa liquidez e percepção de segurança elevada."
+Residencial Paiaguás,Oeste,Cuiaba,TRUE,alto,premium,alto,8200,7000,9800,estimativa,alto,alta,alto,baixo,alta,"Região nobre, perfil residencial moderno e boa previsibilidade urbana."
+Jardim Aclimação,Leste,Cuiaba,TRUE,medio,consolidado,medio,5400,4600,6200,estimativa,medio,media,medio,medio,media,Bairro residencial com serviços próximos e ocorrências urbanas pontuais.
+Jardim Kennedy,Leste,Cuiaba,TRUE,medio,consolidado,medio,5100,4300,5900,estimativa,medio,media,medio,medio,media,"Região urbana consolidada, exigindo atenção a segurança residencial."
+Jardim Califórnia,Leste,Cuiaba,TRUE,medio,consolidado,medio,4900,4200,5700,estimativa,baixo,media,medio,medio,media,Bairro tradicional com perfil urbano estável e percepção de segurança intermediária.
+Jardim Presidente,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,baixo,media,medio,medio,media,Área residencial com comércio local e fluxo urbano moderado.
+Jardim Ubirajara,Oeste,Cuiaba,TRUE,economico,popular,baixo,2600,2100,3000,estimativa,baixo,baixa,baixo,alto,baixa,Bairro popular com infraestrutura limitada e menor liquidez.
+Jardim Industriário,Oeste,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,"Região próxima a áreas industriais, com maior impacto urbano."
+Carumbé,Norte,Cuiaba,TRUE,medio,consolidado,medio,3900,3300,4600,estimativa,baixo,media,medio,medio,media,Bairro residencial com presença de serviços e ocorrências urbanas pontuais.
+Novo Paraíso,Norte,Cuiaba,TRUE,economico,popular,baixo,2500,2100,2900,estimativa,baixo,baixa,baixo,alto,baixa,"Área em desenvolvimento, exigindo maior planejamento urbano."
+Residencial Coxipó,Sul,Cuiaba,TRUE,medio,consolidado,medio,4200,3600,4900,estimativa,medio,media,medio,medio,media,Região residencial com boa oferta de serviços e fluxo urbano.
+Coxipó da Ponte,Sul,Cuiaba,TRUE,economico,popular,baixo,2800,2300,3300,estimativa,baixo,baixa,baixo,alto,baixa,Bairro de perfil popular com maior exposição urbana.
+Coxipó do Ouro,Sul,Cuiaba,TRUE,medio,consolidado,medio,4000,3400,4700,estimativa,baixo,media,medio,medio,media,Região tradicional com características mistas urbano-rurais.
+Residencial Santa Terezinha,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,Bairro popular com limitações de infraestrutura e liquidez.
+Parque Atalaia,Sul,Cuiaba,TRUE,medio,consolidado,medio,4100,3500,4800,estimativa,baixo,media,medio,medio,media,Área residencial com comércio local e tráfego significativo.
+Altos da Serra,Norte,Cuiaba,TRUE,medio,consolidado,medio,4400,3800,5200,estimativa,medio,media,medio,medio,media,Bairro residencial em expansão com variações de padrão urbano.
+Ribeirão da Ponte,Oeste,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,Região periférica com infraestrutura limitada e maior risco urbano.
+Santa Terezinha,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4600,3900,5400,estimativa,baixo,media,medio,medio,media,Bairro tradicional com perfil urbano estável e atenção à segurança.
+Jardim Guanabara,Norte,Cuiaba,TRUE,medio,consolidado,medio,4700,4000,5500,estimativa,medio,media,medio,medio,media,"Bairro residencial consolidado, com comércio local e ocorrências urbanas pontuais."
+Jardim Vitória II,Norte,Cuiaba,TRUE,economico,popular,baixo,2100,1700,2500,estimativa,baixo,baixa,baixo,alto,baixa,"Extensão de área popular, com infraestrutura limitada e maior exposição urbana."
+Jardim Liberdade,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4800,4100,5600,estimativa,baixo,media,medio,medio,media,Região tradicional com serviços próximos e atenção à segurança residencial.
+Jardim Universitário,Leste,Cuiaba,TRUE,medio,consolidado,medio,5200,4500,6000,estimativa,medio,media,medio,medio,media,"Área próxima a instituições, fluxo intenso em horários específicos."
+Jardim Leblon,Leste,Cuiaba,TRUE,alto,consolidado,alto,7400,6200,8800,estimativa,medio,alta,alto,baixo,alta,"Bairro valorizado, perfil residencial e boa previsibilidade urbana."
+Jardim Marajoara,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,baixo,media,medio,medio,media,Região residencial com comércio de apoio e tráfego moderado.
+Jardim Novo Horizonte,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,"Área de expansão popular, exigindo planejamento e soluções de segurança."
+Jardim das Palmeiras,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5100,4400,5900,estimativa,medio,media,medio,medio,media,Bairro residencial com padrão estável e liquidez moderada.
+Jardim Industriário II,Oeste,Cuiaba,TRUE,economico,popular,baixo,2500,2100,3000,estimativa,baixo,baixa,baixo,alto,baixa,"Extensão de área industrial, com impacto urbano relevante."
+Jardim Vitória III,Norte,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,Região popular com limitações urbanas e menor previsibilidade.
+Jardim Santa Amália,Leste,Cuiaba,TRUE,medio,consolidado,medio,4900,4200,5700,estimativa,baixo,media,medio,medio,media,Bairro residencial com serviços próximos e tráfego urbano.
+Jardim Itália II,Oeste,Cuiaba,TRUE,alto,premium,alto,8300,7000,9800,estimativa,alto,alta,alto,baixo,alta,"Área nobre complementar ao Jardim Itália, com alta previsibilidade urbana."
+Jardim Eldorado,Sul,Cuiaba,TRUE,medio,consolidado,medio,4300,3600,5000,estimativa,baixo,media,medio,medio,media,"Região residencial tradicional, com variação de conforto urbano."
+Jardim Imperial,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7600,6400,9000,estimativa,medio,alta,alto,baixo,alta,Bairro valorizado com boa liquidez e percepção de segurança.
+Jardim Gramado,Leste,Cuiaba,TRUE,medio,consolidado,medio,5100,4400,5900,estimativa,medio,media,medio,medio,media,Área residencial com comércio de apoio e tráfego moderado.
+Jardim Presidente II,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,baixo,media,medio,medio,media,Extensão residencial com perfil urbano semelhante ao Jardim Presidente.
+Jardim Florianópolis II,Sul,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,Área complementar com infraestrutura limitada e maior exposição urbana.
+Jardim Araçá,Norte,Cuiaba,TRUE,medio,consolidado,medio,4600,3900,5400,estimativa,baixo,media,medio,medio,media,Bairro residencial com perfil urbano estável.
+Jardim Passaredo,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4800,4100,5600,estimativa,medio,media,medio,medio,media,Área residencial com bom acesso viário e comércio próximo.
+Jardim Monte Líbano,Leste,Cuiaba,TRUE,alto,consolidado,alto,7200,6000,8600,estimativa,medio,alta,alto,baixo,alta,"Bairro de alto padrão residencial, boa liquidez e conforto urbano."
+Jardim Itália III,Oeste,Cuiaba,TRUE,alto,premium,alto,8600,7200,10200,estimativa,alto,alta,alto,baixo,alta,"Área complementar ao eixo nobre, padrão elevado e boa previsibilidade urbana."
+Jardim Petrópolis,Leste,Cuiaba,TRUE,medio,consolidado,medio,5200,4500,6000,estimativa,medio,media,medio,medio,media,Bairro residencial com comércio local e fluxo urbano moderado.
+Jardim Bela Vista,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,baixo,media,medio,medio,media,"Região residencial tradicional, com atenção à segurança em vias de maior movimento."
+Jardim Europa,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7800,6500,9200,estimativa,medio,alta,alto,baixo,alta,"Bairro valorizado, perfil residencial estável e boa liquidez."
+Jardim Santa Rosa II,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7900,6700,9400,estimativa,medio,alta,alto,baixo,alta,"Extensão de bairro nobre, mantendo padrão urbano elevado."
+Jardim Aeroporto,Sul,Cuiaba,TRUE,medio,consolidado,medio,4300,3600,5000,estimativa,baixo,media,medio,medio,media,"Área residencial próxima a eixos viários, com impacto de tráfego."
+Jardim Primavera,Leste,Cuiaba,TRUE,medio,consolidado,medio,5100,4400,5900,estimativa,medio,media,medio,medio,media,Bairro residencial com serviços próximos e conforto urbano intermediário.
+Jardim Campo Verde,Sul,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,"Região popular em expansão, exigindo planejamento e soluções de segurança."
+Jardim Renascer,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,Área popular com infraestrutura limitada e menor previsibilidade.
+Jardim das Oliveiras,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4900,4200,5700,estimativa,baixo,media,medio,medio,media,Bairro residencial com comércio local e tráfego urbano.
+Jardim Brasília,Norte,Cuiaba,TRUE,medio,consolidado,medio,4600,3900,5400,estimativa,baixo,media,medio,medio,media,Região residencial tradicional com variações de conforto urbano.
+Jardim Icaraí,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4800,4100,5600,estimativa,medio,media,medio,medio,media,Bairro residencial com acesso viário facilitado.
+Jardim Umuarama,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,medio,media,medio,medio,media,Área residencial com perfil urbano estável.
+Jardim Novo Mato Grosso,Norte,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,Região em desenvolvimento com infraestrutura inicial.
+Jardim São Sebastião,Leste,Cuiaba,TRUE,medio,consolidado,medio,5100,4400,5900,estimativa,medio,media,medio,medio,media,Bairro residencial com comércio próximo e tráfego urbano.
+Jardim Shangri-lá,Leste,Cuiaba,TRUE,alto,consolidado,alto,7300,6100,8800,estimativa,medio,alta,alto,baixo,alta,"Área valorizada, perfil residencial e boa percepção de segurança."
+Jardim Itália IV,Oeste,Cuiaba,TRUE,alto,premium,alto,8700,7400,10300,estimativa,alto,alta,alto,baixo,alta,Expansão de eixo nobre com padrão elevado e liquidez alta.
+Jardim Santa Isabel,Norte,Cuiaba,TRUE,medio,consolidado,medio,4500,3800,5200,estimativa,baixo,media,medio,medio,media,Bairro residencial tradicional com conforto urbano moderado.
+Jardim Novo Paraíso II,Norte,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,"Extensão de área popular, exigindo planejamento urbano."
+Jardim Alvorada,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4700,4000,5500,estimativa,baixo,media,medio,alto,media,Região urbana consolidada com histórico de ocorrências que afetam conforto.
+Jardim Universitário II,Leste,Cuiaba,TRUE,medio,consolidado,medio,5300,4600,6100,estimativa,medio,media,medio,medio,media,"Extensão de área universitária, com fluxo intenso em horários específicos."
+Jardim Vitória IV,Norte,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,"Área popular complementar, com infraestrutura limitada."
+Jardim Itamaraty,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4900,4200,5700,estimativa,baixo,media,medio,medio,media,"Bairro residencial tradicional, com comércio local."
+Jardim Itália V,Oeste,Cuiaba,TRUE,alto,premium,alto,8800,7500,10500,estimativa,alto,alta,alto,baixo,alta,"Continuidade do eixo nobre, padrão elevado e liquidez alta."
+Jardim Vitória V,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,"Região popular em expansão, com desafios urbanos."
+Jardim Panorama,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7400,6200,8900,estimativa,medio,alta,alto,baixo,alta,Bairro valorizado com boa previsibilidade urbana.
+Jardim Costa Verde,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5100,4400,5900,estimativa,medio,media,medio,medio,media,Área residencial com acesso viário facilitado.
+Jardim Imperial II,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7700,6500,9100,estimativa,medio,alta,alto,baixo,alta,Extensão de bairro nobre com padrão urbano elevado.
+Jardim Novo Horizonte II,Norte,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,"Área popular complementar, exigindo planejamento."
+Jardim Araés,Centro,Cuiaba,TRUE,medio,consolidado,medio,5200,4500,6000,estimativa,baixo,media,medio,alto,media,Região central tradicional com impacto urbano significativo.
+Jardim Passaredo II,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4900,4200,5700,estimativa,medio,media,medio,medio,media,Continuidade residencial com perfil urbano estável.
+Jardim Residencial França,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7600,6400,9000,estimativa,medio,alta,alto,baixo,alta,"Bairro residencial valorizado, boa liquidez."
+Jardim Renascer II,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,Extensão de área popular com infraestrutura limitada.
+Jardim Tropical II,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7900,6700,9400,estimativa,medio,alta,alto,baixo,alta,"Extensão de bairro valorizado, mantendo padrão elevado."
+Jardim Santa Marta,Sul,Cuiaba,TRUE,medio,consolidado,medio,4200,3600,4900,estimativa,baixo,media,medio,medio,media,Bairro residencial com comércio local e tráfego urbano.
+Jardim Itália VI,Oeste,Cuiaba,TRUE,alto,premium,alto,8900,7600,10600,estimativa,alto,alta,alto,baixo,alta,"Expansão final do eixo nobre, alta previsibilidade urbana."
+Jardim Ouro Fino,Norte,Cuiaba,TRUE,economico,popular,baixo,2100,1700,2500,estimativa,baixo,baixa,baixo,alto,baixa,Área popular com desafios urbanos recorrentes.
+Jardim Novo Tempo,Sul,Cuiaba,TRUE,medio,consolidado,medio,4300,3700,5000,estimativa,baixo,media,medio,medio,media,Bairro residencial com perfil urbano estável.
+Jardim Residencial Santa Clara,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4800,4100,5600,estimativa,medio,media,medio,medio,media,Área residencial com bom acesso viário.
+Jardim Vitória VI,Norte,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,Área popular com menor previsibilidade urbana.
+Jardim Califórnia II,Leste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,medio,media,medio,medio,media,Extensão residencial com perfil urbano semelhante ao Jardim Califórnia.
+Jardim Copacabana,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4700,4000,5500,estimativa,baixo,media,medio,medio,media,Bairro residencial tradicional com comércio local.
+Jardim Florença,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7500,6300,9000,estimativa,medio,alta,alto,baixo,alta,"Área residencial valorizada, boa previsibilidade urbana."
+Jardim Glória,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4800,4100,5600,estimativa,baixo,media,medio,medio,media,Região residencial com tráfego urbano moderado.
+Jardim Guanandi,Sul,Cuiaba,TRUE,medio,consolidado,medio,4200,3600,4900,estimativa,baixo,media,medio,medio,media,Bairro residencial com serviços próximos e fluxo urbano.
+Jardim Imperial III,Oeste,Cuiaba,TRUE,alto,consolidado,alto,7800,6600,9200,estimativa,medio,alta,alto,baixo,alta,Continuidade de eixo valorizado com bom padrão urbano.
+Jardim Itapuã,Norte,Cuiaba,TRUE,economico,popular,baixo,2300,1900,2700,estimativa,baixo,baixa,baixo,alto,baixa,Área popular com infraestrutura limitada.
+Jardim Leblon II,Leste,Cuiaba,TRUE,alto,consolidado,alto,7600,6400,9100,estimativa,medio,alta,alto,baixo,alta,"Extensão de bairro nobre, mantendo padrão elevado."
+Jardim Liberdade II,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4900,4200,5700,estimativa,baixo,media,medio,medio,media,Área residencial complementar com perfil urbano estável.
+Jardim Manancial,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4600,3900,5400,estimativa,baixo,media,medio,medio,media,"Bairro residencial tradicional, com atenção à segurança local."
+Jardim Monte Líbano II,Leste,Cuiaba,TRUE,alto,consolidado,alto,7300,6100,8800,estimativa,medio,alta,alto,baixo,alta,Complemento de bairro nobre com boa liquidez.
+Jardim Novo Milênio,Norte,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,Região popular em expansão urbana.
+Jardim Ouro Verde,Sul,Cuiaba,TRUE,medio,consolidado,medio,4100,3500,4800,estimativa,baixo,media,medio,medio,media,Bairro residencial com comércio local.
+Jardim Planalto II,Norte,Cuiaba,TRUE,economico,popular,baixo,2200,1800,2600,estimativa,baixo,baixa,baixo,alto,baixa,Extensão de área popular com desafios urbanos.
+Jardim Presidente III,Oeste,Cuiaba,TRUE,medio,consolidado,medio,5000,4300,5800,estimativa,baixo,media,medio,medio,media,Continuidade residencial com perfil urbano semelhante.
+Jardim Santa Laura,Oeste,Cuiaba,TRUE,medio,consolidado,medio,4700,4000,5500,estimativa,baixo,media,medio,medio,media,Bairro residencial com conforto urbano intermediário.
+Jardim São Gonçalo,Leste,Cuiaba,TRUE,medio,consolidado,medio,5200,4500,6000,estimativa,medio,media,medio,medio,media,Área residencial consolidada com boa infraestrutura.
+Jardim Três Poderes,Centro,Cuiaba,TRUE,alto,consolidado,alto,7800,6500,9200,estimativa,medio,alta,alto,baixo,alta,"Região institucional valorizada, boa liquidez e previsibilidade."
+Jardim União,Sul,Cuiaba,TRUE,economico,popular,baixo,2100,1700,2500,estimativa,baixo,baixa,baixo,alto,baixa,Área popular com limitações de infraestrutura.
+Jardim Vitória VII,Norte,Cuiaba,TRUE,economico,popular,baixo,2400,2000,2800,estimativa,baixo,baixa,baixo,alto,baixa,Extensão popular com menor previsibilidade urbana.

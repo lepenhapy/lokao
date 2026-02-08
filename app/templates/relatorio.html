@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Relat&oacute;rio de An&aacute;lise Imobili&aacute;ria - Lok&aacute;o</title>
+<style>
+:root {
+  --primaria: #1f3c88;
+  --secundaria: #4f6bed;
+  --texto: #1f2937;
+  --suave: #6b7280;
+  --bg: #f4f6f8;
+  --papel: #ffffff;
+  --borda: #e5e7eb;
+}
+body { background: var(--bg); font-family: "Segoe UI", Roboto, Arial, sans-serif; margin: 0; color: var(--texto); }
+.relatorio { max-width: 980px; margin: 24px auto; background: var(--papel); padding: 34px 40px; border-radius: 12px; box-shadow: 0 10px 28px rgba(0,0,0,.08); }
+h1 { color: var(--primaria); margin: 0 0 8px; }
+h2 { margin: 24px 0 8px; padding-left: 12px; border-left: 5px solid var(--secundaria); color: var(--primaria); font-size: 20px; }
+h3 { margin: 12px 0 6px; color: var(--primaria); font-size: 16px; }
+p { text-align: justify; line-height: 1.45; margin: 6px 0; }
+ul { margin: 6px 0 10px 18px; padding: 0; }
+li { margin: 4px 0; line-height: 1.4; }
+.small { font-size: 13px; color: var(--suave); }
+.botao { display: inline-block; padding: 10px 14px; border-radius: 8px; background: var(--primaria); color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
+.ficha { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin: 12px 0; padding: 10px 12px; border: 1px solid var(--borda); border-radius: 10px; background: #fafafa; }
+.score-box { margin: 8px 0; padding: 8px 10px; border-radius: 9px; border: 1px solid #dbeafe; background: #eff6ff; }
+.executivo { margin: 10px 0; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe; background: #eff6ff; }
+.grafico { margin: 10px 0 12px; padding: 8px; border: 1px solid var(--borda); border-radius: 10px; background: #fff; }
+.grafico img { width: 720px; display: block; margin: 0 auto; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 14px; }
+th, td { border: 1px solid var(--borda); padding: 7px 8px; text-align: left; vertical-align: top; }
+th { background: #eef2ff; color: #1e3a8a; }
+.fonte-box { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--borda); border-radius: 8px; background: #f8fafc; }
+.rodape { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--borda); display: flex; justify-content: space-between; font-size: 12px; color: var(--suave); }
+body.pdf .relatorio { margin: 8px auto; padding: 20px 22px; box-shadow: none; }
+body.pdf h1 { margin: 0 0 4px; font-size: 21px; }
+body.pdf h2 { margin: 14px 0 5px; font-size: 16px; }
+body.pdf h3 { margin: 10px 0 4px; font-size: 14px; }
+body.pdf p { line-height: 1.24; margin: 3px 0; }
+body.pdf ul { margin: 3px 0 6px 16px; }
+body.pdf li { margin: 2px 0; line-height: 1.2; }
+body.pdf .ficha { margin: 6px 0; padding: 6px 8px; gap: 3px 10px; }
+body.pdf .score-box, body.pdf .grafico, body.pdf .executivo { margin: 5px 0 7px; padding: 5px 6px; }
+body.pdf .grafico img { width: 640px; }
+body.pdf table { font-size: 12px; margin: 4px 0 8px; }
+body.pdf th, body.pdf td { padding: 4px 5px; }
+body.pdf .rodape { font-size: 10px; margin-top: 10px; }
+@media print {
+  @page { margin: 10mm; }
+  body { background: #fff; }
+  .relatorio {
+    max-width: none;
+    margin: 0;
+    padding: 10px 12px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h1 { margin: 0 0 4px; font-size: 21px; }
+  h2 { margin: 12px 0 5px; font-size: 16px; }
+  h3 { margin: 8px 0 4px; font-size: 14px; }
+  p { line-height: 1.2; margin: 2px 0; }
+  ul { margin: 2px 0 6px 16px; }
+  li { margin: 1px 0; line-height: 1.2; }
+  .ficha { margin: 5px 0; padding: 6px 8px; gap: 3px 10px; }
+  .score-box, .grafico, .executivo { margin: 4px 0 6px; padding: 5px 6px; }
+  .grafico img { width: 620px; }
+  table { font-size: 12px; margin: 4px 0 8px; }
+  th, td { padding: 4px 5px; }
+  .rodape { font-size: 10px; margin-top: 8px; }
+  .botao { display: none !important; }
+}
+</style>
+</head>
+<body class="{{ 'pdf' if is_pdf else '' }}">
+<div class="relatorio">
+  <h1>Relat&oacute;rio de An&aacute;lise Imobili&aacute;ria - Lok&aacute;o</h1>
+  <p class="small">Diagn&oacute;stico urbano, financeiro e estrat&eacute;gico para tomada de decis&atilde;o.</p>
+  {% if liberado and not is_pdf %}
+    <p><a class="botao" href="/relatorio/pdf?token={{ token }}" target="_blank">Baixar PDF</a></p>
+  {% endif %}
+
+  <div class="ficha">
+    <div><strong>Cliente:</strong> {{ nome }}</div>
+    <div><strong>Bairro analisado:</strong> {{ bairro }}</div>
+    <div><strong>Tipo de im&oacute;vel:</strong> {{ tipo_imovel }}</div>
+    <div><strong>Padr&atilde;o desejado:</strong> {{ padrao }}</div>
+  </div>
+
+  <div class="executivo">
+    <strong>Resumo executivo: {{ resumo_decisao.classe }}</strong><br>
+    {{ resumo_decisao.mensagem }}<br>
+    <strong>A&ccedil;&atilde;o recomendada:</strong> {{ resumo_decisao.acao }}
+  </div>
+
+  <h2>1. Compatibilidade Urbana (ICU)</h2>
+  <div class="score-box"><strong>{{ score.valor }}/100 - {{ score.classificacao }}</strong></div>
+  <p>{{ texto_compatibilidade }}</p>
+  {% if score.explicacoes %}
+    <h3>Como o score foi formado</h3>
+    <ul>{% for motivo in score.explicacoes %}<li>{{ motivo }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if grafico_score_url %}
+    <div class="grafico"><img src="{{ grafico_score_url }}" alt="Gr&aacute;fico de score urbano"></div>
+    <p class="small"><strong>Leitura do gr&aacute;fico:</strong> {{ insight_score_grafico }}</p>
+  {% endif %}
+
+  <h2>2. Leitura Urbana do Bairro</h2>
+  <p>{{ texto_urbano }}</p>
+  <p>
+    Esta leitura considera din&acirc;mica urbana, perfil socioecon&ocirc;mico, estabilidade
+    da vizinhan&ccedil;a, potencial de valoriza&ccedil;&atilde;o e risco de fric&ccedil;&atilde;o entre padr&atilde;o
+    desejado e realidade local. O objetivo &eacute; reduzir decis&atilde;o baseada apenas em
+    percep&ccedil;&atilde;o visual.
+  </p>
+
+  <h2>3. Conforto Ambiental e Uso Diario</h2>
+  <p>
+    Insola&ccedil;&atilde;o, ventila&ccedil;&atilde;o, ru&iacute;do, orienta&ccedil;&atilde;o solar e qualidade construtiva
+    impactam diretamente custo de uso e qualidade de vida. O im&oacute;vel ideal &eacute; o
+    que funciona bem na rotina real, n&atilde;o apenas no primeiro impacto visual.
+  </p>
+
+  {% if is_apartamento %}
+  <h2>4. An&aacute;lise Financeira (Compra e Custo de Ocupa&ccedil;&atilde;o)</h2>
+  {% else %}
+  <h2>4. An&aacute;lise Financeira (Compra x Constru&ccedil;&atilde;o)</h2>
+  {% endif %}
+  {% if is_apartamento %}
+  <p>
+    Nesta se&ccedil;&atilde;o o foco &eacute; compra e custo recorrente de ocupa&ccedil;&atilde;o.
+    Para apartamento, a leitura principal est&aacute; no caixa mensal (condom&iacute;nio,
+    fundo de reserva, tributos e poss&iacute;vel ajuste interno).
+  </p>
+  {% else %}
+  <p>
+    Aqui separamos duas leituras para facilitar a decis&atilde;o: compra
+    (m2 de mercado do bairro) e constru&ccedil;&atilde;o (CUB mensal de Cuiab&aacute;
+    conforme padr&atilde;o selecionado).
+  </p>
+  {% endif %}
+  <h3>4.1 Compra do im&oacute;vel</h3>
+  <p><strong>Or&ccedil;amento informado:</strong> {{ orcamento }}</p>
+  <p><strong>Valor do im&oacute;vel considerado:</strong> {{ valor_imovel }}</p>
+  <p><strong>m2 de mercado (bairro):</strong> {{ valor_m2_compra }} / m2</p>
+  <p><strong>Fonte do m2 de mercado:</strong> {{ fonte_valor_m2_compra }}</p>
+  <p><strong>Data de refer&ecirc;ncia do m2:</strong> {{ data_valor_m2_compra or "N&atilde;o informada" }}</p>
+  {% if financiar %}
+  <p><strong>Renda mensal informada:</strong> {{ renda_formatada }}</p>
+  <p><strong>Tipo/Prazo de financiamento:</strong> {{ tipo_financiamento or "N&atilde;o informado" }} / {{ prazo or "N&atilde;o informado" }}</p>
+  {% endif %}
+  <p><strong>Ticket sobre or&ccedil;amento:</strong> {{ "%.1f"|format(percentual_ticket_orcamento) }}%</p>
+  {% if financiar and comprometimento_renda_estimado %}
+  <p><strong>Comprometimento de renda (parcela simplificada):</strong> {{ "%.1f"|format(comprometimento_renda_estimado) }}%</p>
+  {% endif %}
+  <p>{{ texto_financeiro }}</p>
+  {% if financeiro_mensagens %}
+    <ul>{% for msg in financeiro_mensagens %}<li>{{ msg }}</li>{% endfor %}</ul>
+  {% endif %}
+  <p>
+    Na compra, o risco n&atilde;o est&aacute; apenas no valor da parcela. O custo total
+    envolve CET, seguros, taxas banc&aacute;rias, cart&oacute;rio e tributos de transfer&ecirc;ncia.
+    O foco gerencial &eacute; preservar margem de seguran&ccedil;a para n&atilde;o comprimir o caixa.
+  </p>
+  {% if projecoes_compra %}
+  <h3>Proje&ccedil;&atilde;o de desembolso total na compra</h3>
+  <p class="small">
+    Esta tabela consolida o valor de aquisi&ccedil;&atilde;o com custos que
+    normalmente aparecem no fechamento e no ajuste inicial do im&oacute;vel.
+  </p>
+  <table>
+    <tr><th>Cen&aacute;rio</th><th>ITBI</th><th>Cart&oacute;rio</th><th>Taxas banc&aacute;rias</th><th>Adequa&ccedil;&otilde;es</th><th>Reserva</th><th>Total previsto</th><th>% do or&ccedil;amento</th><th>Saldo/d&eacute;ficit</th></tr>
+    {% for row in projecoes_compra %}
+      <tr><td>{{ row.cenario }}</td><td>{{ row.itbi }}</td><td>{{ row.cartorio }}</td><td>{{ row.bancario }}</td><td>{{ row.adequacoes }}</td><td>{{ row.reserva }}</td><td>{{ row.total }}</td><td>{{ "%.1f"|format(row.percentual_orcamento) }}%</td><td>{{ row.saldo_vs_orcamento }}</td></tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% if financiar %}
+  <h3>&Iacute;ndices relevantes em financiamento</h3>
+  <p class="small">
+    Os &iacute;ndices abaixo ajudam a entender a din&acirc;mica do custo do cr&eacute;dito
+    ao longo do contrato.
+  </p>
+  <table>
+    <tr><th>&Iacute;ndice</th><th>Como funciona</th><th>Impacto pr&aacute;tico</th></tr>
+    {% for row in tabela_indices %}
+      <tr><td>{{ row.indice }}</td><td>{{ row.leitura }}</td><td>{{ row.impacto }}</td></tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% if financiar %}
+  <h3>Exemplos de institui&ccedil;&otilde;es e linhas</h3>
+  <p class="small">
+    Use este quadro para comparar proposta por proposta, com foco em
+    custo efetivo total e condi&ccedil;&otilde;es de aprova&ccedil;&atilde;o.
+  </p>
+  <table>
+    <tr><th>Institui&ccedil;&atilde;o</th><th>Sistemas comuns</th><th>Observa&ccedil;&atilde;o</th></tr>
+    {% for row in tabela_bancos %}
+      <tr><td>{{ row.instituicao }}</td><td>{{ row.sistemas }}</td><td>{{ row.observacao }}</td></tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  <h3>Custos adicionais de compra (faixas orientativas)</h3>
+  <p class="small">
+    Custos fora do an&uacute;ncio que precisam entrar no caixa total da compra.
+  </p>
+  <table>
+    <tr><th>Item</th><th>Faixa m&eacute;dia</th><th>Observa&ccedil;&atilde;o</th></tr>
+    {% for row in tabela_compra_taxas %}
+      <tr><td>{{ row.item }}</td><td>{{ row.faixa }}</td><td>{{ row.observacao }}</td></tr>
+    {% endfor %}
+  </table>
+
+  {% if not is_apartamento %}
+    <h3>4.2 Constru&ccedil;&atilde;o (quando aplic&aacute;vel)</h3>
+    <p><strong>CUB de refer&ecirc;ncia (Cuiab&aacute;):</strong> {{ cub }} / m2</p>
+    <p><strong>Refer&ecirc;ncia CUB:</strong> {{ cub_competencia_curta or "n/d" }}</p>
+    <p><strong>Padr&atilde;o aplicado no CUB:</strong> {{ cub_padrao_aplicado }}</p>
+    <p><strong>Fonte CUB:</strong> {{ fonte_cub }}</p>
+    <p><strong>Custo b&aacute;sico estimado de constru&ccedil;&atilde;o:</strong> {{ custo_estimado }}</p>
+    <p>
+      O CUB &eacute; refer&ecirc;ncia de piso t&eacute;cnico. N&atilde;o representa custo final fechado.
+      A obra real inclui projetos, aprova&ccedil;&otilde;es, taxas, infraestrutura e qualidade
+      de acabamento. O olhar t&eacute;cnico evita subor&ccedil;amento e paralisa&ccedil;&atilde;o de obra.
+    </p>
+    {% if projecoes_construcao %}
+    <h3>Proje&ccedil;&atilde;o de desembolso total na constru&ccedil;&atilde;o</h3>
+    <p class="small">
+      Proje&ccedil;&atilde;o de custo completo de obra com componentes t&eacute;cnicos e
+      margem de conting&ecirc;ncia para reduzir risco de estouro.
+    </p>
+    <table>
+      <tr><th>Cen&aacute;rio</th><th>Projetos + ART/RRT</th><th>Aprova&ccedil;&otilde;es</th><th>Infraestrutura</th><th>Conting&ecirc;ncia</th><th>Total previsto</th><th>% do or&ccedil;amento</th><th>Saldo/d&eacute;ficit</th></tr>
+      {% for row in projecoes_construcao %}
+        <tr><td>{{ row.cenario }}</td><td>{{ row.projetos }}</td><td>{{ row.aprovacoes }}</td><td>{{ row.infraestrutura }}</td><td>{{ row.contingencia }}</td><td>{{ row.total }}</td><td>{{ "%.1f"|format(row.percentual_orcamento) }}%</td><td>{{ row.saldo_vs_orcamento }}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  {% else %}
+    <h3>4.2 Custos recorrentes para apartamento</h3>
+    <p>
+      Para apartamento, o CUB de constru&ccedil;&atilde;o predial n&atilde;o &eacute; o melhor
+      indicador de aquisi&ccedil;&atilde;o. O foco gerencial passa a ser custo mensal
+      recorrente e desembolso de p&oacute;s-compra.
+    </p>
+    <table>
+      <tr><th>Item</th><th>Faixa orientativa</th><th>Impacto no caixa</th><th>Fonte</th></tr>
+      {% for row in tabela_apartamento_custos %}
+        <tr><td>{{ row.item }}</td><td>{{ row.faixa }}</td><td>{{ row.impacto }}</td><td>{{ row.fonte }}</td></tr>
+      {% endfor %}
+    </table>
+    <p class="small"><strong>Ressalva:</strong> Custos variam por conven&ccedil;&atilde;o condominial, padr&atilde;o do edif&iacute;cio e localiza&ccedil;&atilde;o.</p>
+    <h3>4.3 Sugest&otilde;es estrat&eacute;gicas por encaixe financeiro</h3>
+    <p>
+      As sugest&otilde;es abaixo priorizam encaixe de custo e folga de seguran&ccedil;a,
+      para aumentar a chance de uma decis&atilde;o sustent&aacute;vel.
+    </p>
+    {% if sugestoes %}
+      <ul>{% for s in sugestoes %}<li>{{ s }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>Sem alternativa claramente superior no cen&aacute;rio atual. Recomenda-se recalibrar &aacute;rea, ticket ou tipologia.</p>
+    {% endif %}
+  {% endif %}
+
+  {% if not is_apartamento %}
+  <h3>Pontos t&eacute;cnicos urban&iacute;sticos (prefeitura e aprova&ccedil;&atilde;o)</h3>
+  <p class="small">
+    Checklist regulat&oacute;rio para validar viabilidade e evitar retrabalho.
+  </p>
+  <table>
+    <tr><th>Tema</th><th>O que verificar</th><th>Risco se ignorar</th></tr>
+    {% for row in tabela_urbanismo %}
+      <tr><td>{{ row.tema }}</td><td>{{ row.o_que_ver }}</td><td>{{ row.risco }}</td></tr>
+    {% endfor %}
+  </table>
+
+  <h3>Taxas e custos de regulariza&ccedil;&atilde;o de obra (faixas)</h3>
+  <p class="small">
+    Faixas orientativas para provis&atilde;o financeira da etapa burocr&aacute;tica.
+  </p>
+  <table>
+    <tr><th>Item</th><th>Faixa m&eacute;dia</th><th>Observa&ccedil;&atilde;o</th></tr>
+    {% for row in tabela_construcao_taxas %}
+      <tr><td>{{ row.item }}</td><td>{{ row.faixa }}</td><td>{{ row.observacao }}</td></tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  {% if grafico_financeiro_url %}
+    <div class="grafico"><img src="{{ grafico_financeiro_url }}" alt="Gr&aacute;fico comparativo financeiro"></div>
+    <p class="small"><strong>Leitura do gr&aacute;fico:</strong> {{ insight_financeiro_grafico }}</p>
+  {% endif %}
+
+  {% if not is_apartamento %}
+  <h2>5. Engenharia de Viabilidade (solo, custo e prazo)</h2>
+  <p>
+    Este bloco entrega repert&oacute;rio para conversa t&eacute;cnica com corretor,
+    engenheiro e construtora. As faixas s&atilde;o orientativas e devem ser
+    validadas no projeto executivo e na sondagem real do lote.
+  </p>
+
+  <h3>5.1 Sondagem SPT e impacto em funda&ccedil;&atilde;o</h3>
+  <table>
+    <tr><th>Faixa SPT</th><th>Leitura t&eacute;cnica</th><th>Funda&ccedil;&atilde;o mais comum</th><th>Impacto de custo</th></tr>
+    {% for row in tabela_spt %}
+      <tr><td>{{ row.faixa }}</td><td>{{ row.leitura }}</td><td>{{ row.fundacao_tendencia }}</td><td>{{ row.impacto }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small"><strong>Ressalva:</strong> {{ ressalva_bloco_tecnico }}</p>
+
+  <h3>Tipos de funda&ccedil;&atilde;o mais comuns na regi&atilde;o</h3>
+  <table>
+    <tr><th>Tipo</th><th>Quando aparece mais</th><th>Ponto forte</th></tr>
+    {% for row in tabela_fundacoes %}
+      <tr><td>{{ row.tipo }}</td><td>{{ row.uso }}</td><td>{{ row.vantagem }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small"><strong>Ressalva:</strong> Solu&ccedil;&atilde;o final depende de laudo de sondagem, c&aacute;lculo estrutural e norma t&eacute;cnica aplic&aacute;vel.</p>
+
+  <h3>5.2 Metodologias construtivas (custo-benef&iacute;cio)</h3>
+  <p class="small">
+    C&aacute;lculo orientativo para &aacute;rea de refer&ecirc;ncia: {{ area_ref_metodologias }} m2.
+    O custo total abaixo cruza m&eacute;dia de mercado com seu cen&aacute;rio de or&ccedil;amento.
+  </p>
+  <table>
+    <tr><th>Metodologia</th><th>Custo m2 (referencial)</th><th>Custo total estimado</th><th>% do or&ccedil;amento</th><th>&Aacute;rea m&aacute;xima no or&ccedil;amento</th><th>Prazo m&eacute;dio</th></tr>
+    {% for row in tabela_metodologias %}
+      <tr><td>{{ row.metodologia }}</td><td>{{ row.custo_m2 }}</td><td>{{ row.custo_total }}</td><td>{{ "%.1f"|format(row.percentual_orcamento) }}%</td><td>{{ row.area_max_orcamento }} m2</td><td>{{ row.faixa_prazo }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small">
+    <strong>Leitura da &aacute;rea m&aacute;xima no or&ccedil;amento:</strong> metragem aproximada
+    que caberia no or&ccedil;amento total para cada metodologia, em cen&aacute;rio sem
+    custos extraordin&aacute;rios fora da curva.
+  </p>
+  <p class="small"><strong>Ressalva:</strong> Valores estimados por benchmarking e refer&ecirc;ncias de mercado; variam por projeto, padr&atilde;o e contrato.</p>
+
+  <h3>5.3 Clima de Cuiab&aacute; e janela de obra</h3>
+  <table>
+    <tr><th>Tema</th><th>Refer&ecirc;ncia m&eacute;dia</th><th>Impacto pr&aacute;tico no cronograma</th></tr>
+    {% for row in quadro_clima %}
+      <tr><td>{{ row.tema }}</td><td>{{ row.dado }}</td><td>{{ row.impacto }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small"><strong>Ressalva:</strong> Condi&ccedil;&otilde;es clim&aacute;ticas oscilam por ano; usar como norte, n&atilde;o como garantia.</p>
+
+  <h3>5.4 Prazo de constru&ccedil;&atilde;o por faixa de &aacute;rea</h3>
+  <table>
+    <tr><th>Cen&aacute;rio</th><th>Alvenaria convencional</th><th>Alvenaria estrutural</th><th>Steel Frame</th><th>Painel EPS</th></tr>
+    {% for row in tabela_prazo_faixa %}
+      <tr><td>{{ row.cenario }}</td><td>{{ row.convencional }}</td><td>{{ row.estrutural }}</td><td>{{ row.steel_frame }}</td><td>{{ row.eps }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small"><strong>Ressalva:</strong> Prazos pressup&otilde;em fluxo normal de obra, sem atrasos jur&iacute;dicos, log&iacute;sticos ou financeiros.</p>
+
+  <h3>Calend&aacute;rio sugerido de in&iacute;cio e entrega (orientativo)</h3>
+  <table>
+    <tr><th>Metodologia</th><th>In&iacute;cio sugerido</th><th>Entrega estimada</th><th>Prazo m&eacute;dio (meses)</th></tr>
+    {% for row in calendario_exec %}
+      <tr><td>{{ row.metodologia }}</td><td>{{ row.inicio_sugerido }}</td><td>{{ row.entrega_estimativa }}</td><td>{{ row.prazo_medio_meses }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small"><strong>Ressalva:</strong> Calend&aacute;rio apenas indicativo; o cronograma real depende de licen&ccedil;as, contrata&ccedil;&otilde;es e produtividade de campo.</p>
+
+  <h3>Fontes p&uacute;blicas e setoriais utilizadas</h3>
+  <table>
+    <tr><th>Tema</th><th>Fonte</th></tr>
+    {% for row in fontes_publicas %}
+      <tr><td>{{ row.tema }}</td><td>{{ row.url }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="small"><strong>Ressalva:</strong> Refer&ecirc;ncias externas podem atualizar metodologia e valores ao longo do tempo.</p>
+
+  <h3>Sugest&otilde;es estrat&eacute;gicas por encaixe financeiro</h3>
+  <p>
+    As sugest&otilde;es abaixo priorizam encaixe de custo e folga de seguran&ccedil;a, para
+    aumentar a chance de uma decis&atilde;o sustent&aacute;vel e reduzir risco de compra
+    emocional com alto comprometimento financeiro.
+  </p>
+  {% if sugestoes %}
+    <ul>{% for s in sugestoes %}<li>{{ s }}</li>{% endfor %}</ul>
+  {% else %}
+    <p>Sem alternativa claramente superior no cen&aacute;rio atual. Recomenda-se recalibrar &aacute;rea, ticket ou tipologia.</p>
+  {% endif %}
+  {% endif %}
+
+  <h2>{% if is_apartamento %}5{% else %}6{% endif %}. Guia de Bolso para A&ccedil;&atilde;o (passo a passo)</h2>
+  <p>
+    Este bloco transforma o relat&oacute;rio em plano pr&aacute;tico. Use as perguntas abaixo
+    em reuni&otilde;es com cada profissional para acelerar decis&atilde;o com menor risco.
+  </p>
+  {% for bloco in roteiro_profissionais %}
+    <h3>{{ bloco.profissional }} - o que perguntar</h3>
+    <ul>{% for p in bloco.perguntas %}<li>{{ p }}</li>{% endfor %}</ul>
+  {% endfor %}
+
+  <h3>Checklist objetivo antes de fechar neg&oacute;cio</h3>
+  <ul>{% for item in checklist_bolso %}<li>{{ item }}</li>{% endfor %}</ul>
+
+  {% if modo_teste and piloto_feedback_url %}
+  <h3>Ajude a melhorar esta vers&atilde;o de teste</h3>
+  <p class="small">
+    Sua opini&atilde;o &eacute; essencial. Leva menos de 3 minutos e nos ajuda a
+    melhorar clareza, utilidade e tomada de decis&atilde;o do relat&oacute;rio.
+  </p>
+  <p><a class="botao" href="{{ piloto_feedback_url }}">Responder formul&aacute;rio de feedback</a></p>
+  {% endif %}
+
+  <h3>Aviso Jur&iacute;dico e Responsabilidade</h3>
+  <p class="small">
+    Este relat&oacute;rio possui car&aacute;ter informativo e orientativo, com base em
+    premissas t&eacute;cnicas, dados de mercado e par&acirc;metros urban&iacute;sticos.
+    N&atilde;o substitui an&aacute;lise jur&iacute;dica, due diligence documental, laudo t&eacute;cnico,
+    vistoria de engenharia, avalia&ccedil;&atilde;o banc&aacute;ria ou parecer profissional
+    especializado para fechamento de neg&oacute;cio.
+  </p>
+  <p class="small">
+    A Lok&aacute;o n&atilde;o garante valoriza&ccedil;&atilde;o, liquidez, aprova&ccedil;&atilde;o de cr&eacute;dito ou
+    aus&ecirc;ncia de riscos ocultos, pois tais fatores dependem de terceiros e de
+    condi&ccedil;&otilde;es de mercado. Recomenda-se valida&ccedil;&atilde;o formal com advogado,
+    engenheiro/arquiteto, corretor e institui&ccedil;&atilde;o financeira antes de qualquer
+    compromisso contratual.
+  </p>
+
+  <div class="fonte-box">
+    <strong>Fontes e metodologia aplicadas:</strong>
+    <ul>{% for fonte in fontes_metodologia %}<li>{{ fonte }}</li>{% endfor %}</ul>
+  </div>
+
+  <div class="rodape">
+    <span>{{ report_version }}</span>
+    <span>Emitido em {{ generated_at }}</span>
+  </div>
+</div>
+</body>
+</html>
