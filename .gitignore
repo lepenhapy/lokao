@@ -23,6 +23,8 @@ app/data/scraping_cache_m2.json
 # Generated graphics
 app/static/grafico_*.png
 app/static/graficos/*.png
+static/grafico_*.png
+static/graficos/*.png
 
 # Logs
 *.log
