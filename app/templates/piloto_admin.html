@@ -14,12 +14,32 @@
     th, td { border: 1px solid #e5e7eb; padding: 7px 8px; text-align: left; vertical-align: top; }
     th { background: #eef2ff; color: #1e3a8a; }
     .sec { margin-top: 18px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: #1f3c88;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
     @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Painel Admin do Piloto</h1>
+    <div class="topbar">
+      <h1>Painel Admin do Piloto</h1>
+      <span class="badge">Atualiza em <span id="countdown">60</span>s</span>
+    </div>
     <div class="grid">
       <div class="kpi"><strong>Janela</strong>{{ painel.metricas.janela.inicio }} at&eacute; {{ painel.metricas.janela.fim }}</div>
       <div class="kpi"><strong>Gerados</strong>{{ painel.metricas.total_gerados }}</div>
@@ -69,5 +89,19 @@
       </table>
     </div>
   </div>
+  <script>
+    let seconds = 60;
+    const el = document.getElementById("countdown");
+    setInterval(() => {
+      seconds -= 1;
+      if (seconds <= 0) {
+        window.location.reload();
+        return;
+      }
+      if (el) {
+        el.textContent = String(seconds);
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
