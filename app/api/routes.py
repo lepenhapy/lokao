@@ -1098,6 +1098,25 @@ def piloto_admin_liberar_cpf():
     return jsonify(resultado)
 
 
+@router.route("/piloto/admin/liberar-cpf-form", methods=["GET", "POST"])
+def piloto_admin_liberar_cpf_form():
+    chave = _texto_limpo(request.values.get("chave", ""), 160)
+    chave_esperada = os.getenv("LOKAO_METRICAS_KEY", "").strip()
+    if not chave_esperada or chave != chave_esperada:
+        abort(404)
+
+    resultado = None
+    if request.method == "POST":
+        cpf = _texto_limpo(request.form.get("cpf", ""), 20)
+        resultado = liberar_cpf_piloto(cpf)
+
+    return render_template(
+        "piloto_admin_liberar_cpf.html",
+        chave=chave,
+        resultado=resultado,
+    )
+
+
 @router.route("/relatorio", methods=["GET", "POST"])
 def relatorio():
     token = _texto_limpo(request.values.get("token", ""), 120)
