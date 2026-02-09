@@ -296,3 +296,35 @@ def dados_admin_piloto(limite_feedback=30, limite_eventos=60):
         "feedback": feedback_view,
         "eventos": eventos_view,
     }
+
+
+def liberar_cpf_piloto(cpf):
+    cpf_limpo = _normalizar_cpf(cpf)
+    if not _validar_cpf(cpf_limpo):
+        return {"ok": False, "motivo": "cpf_invalido"}
+
+    dados = _carregar()
+    cpf_hash = _hash_cpf(cpf_limpo)
+    registro = dados.get("cpfs", {}).pop(cpf_hash, None)
+    if not registro:
+        return {"ok": False, "motivo": "cpf_nao_encontrado"}
+
+    token = registro.get("report_token", "")
+    if token:
+        dados.get("tokens", {}).pop(token, None)
+
+    # Remove feedback associado ao token para manter consistencia de contagem.
+    if token:
+        dados["feedback"] = [
+            item for item in dados.get("feedback", [])
+            if item.get("token") != token
+        ]
+
+    _registrar_evento(
+        dados,
+        "cpf_liberado_admin",
+        cpf_hash=cpf_hash,
+        token=token,
+    )
+    _salvar(dados)
+    return {"ok": True, "token_removido": token}
