@@ -144,10 +144,10 @@ body.pdf .rodape { font-size: 10px; margin-top: 10px; }
   <p><strong>Valor do im&oacute;vel considerado:</strong> {{ valor_imovel }}</p>
   <p><strong>m2 de mercado (bairro):</strong> {{ valor_m2_compra }} / m2</p>
   <p><strong>Fonte do m2 de mercado:</strong> {{ fonte_valor_m2_compra }}</p>
-  <p><strong>Data de refer&ecirc;ncia do m2:</strong> {{ data_valor_m2_compra or "N&atilde;o informada" }}</p>
+  <p><strong>Data de refer&ecirc;ncia do m2:</strong> {{ data_valor_m2_compra or "Não informada" }}</p>
   {% if financiar %}
   <p><strong>Renda mensal informada:</strong> {{ renda_formatada }}</p>
-  <p><strong>Tipo/Prazo de financiamento:</strong> {{ tipo_financiamento or "N&atilde;o informado" }} / {{ prazo or "N&atilde;o informado" }}</p>
+  <p><strong>Tipo/Prazo de financiamento:</strong> {{ tipo_financiamento or "Não informado" }} / {{ prazo or "Não informado" }}</p>
   {% endif %}
   <p><strong>Ticket sobre or&ccedil;amento:</strong> {{ "%.1f"|format(percentual_ticket_orcamento) }}%</p>
   {% if financiar and comprometimento_renda_estimado %}

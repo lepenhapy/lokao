@@ -19,6 +19,7 @@ from app.services.pagamentos_mp import (
 from app.services.piloto_teste import (
     dados_admin_piloto,
     feedback_ja_enviado,
+    liberar_cpf_piloto,
     metricas_piloto,
     obter_janela_teste,
     registrar_feedback,
@@ -430,8 +431,8 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         {
             "indice": "TR",
             "leitura": (
-                "Taxa de Referencia historicamente baixa em "
-                "varios ciclos."
+                "Taxa de Referência historicamente baixa em "
+                "vários ciclos."
             ),
             "impacto": (
                 "Parcela tende a oscilar menos, mas depende "
@@ -440,16 +441,16 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         },
         {
             "indice": "IPCA",
-            "leitura": "Indice de inflacao oficial.",
+            "leitura": "Índice de inflação oficial.",
             "impacto": (
                 "Parcela inicial menor, com risco de subir "
-                "em cenarios inflacionarios."
+                "em cenários inflacionários."
             ),
         },
         {
             "indice": "CDI / Selic",
             "leitura": "Indexadores de custo de dinheiro na economia.",
-            "impacto": "Afetam custo de credito e condicoes de renegociacao.",
+            "impacto": "Afetam custo de crédito e condições de renegociação.",
         },
     ]
 
@@ -462,13 +463,13 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         {
             "instituicao": "Banco do Brasil",
             "sistemas": "SAC / PRICE",
-            "observacao": "Boas opcoes para correntista com relacionamento.",
+            "observacao": "Boas opções para correntista com relacionamento.",
         },
         {
             "instituicao": "Itaú / Bradesco / Santander",
             "sistemas": "SAC / PRICE",
             "observacao": (
-                "Competicao de taxa via relacionamento e "
+                "Competição de taxa via relacionamento e "
                 "perfil de renda."
             ),
         },
@@ -478,7 +479,7 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         {
             "item": "ITBI",
             "faixa": "2% a 3%",
-            "observacao": "Variacao por municipio.",
+            "observacao": "Variação por município.",
         },
         {
             "item": "Escritura e registro",
@@ -486,32 +487,32 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
             "observacao": "Custos cartoriais e registro final.",
         },
         {
-            "item": "Avaliacao e taxas bancarias",
+            "item": "Avaliação e taxas bancárias",
             "faixa": "R$ 2 mil a R$ 6 mil",
-            "observacao": "Depende do banco e ticket do imovel.",
+            "observacao": "Depende do banco e ticket do imóvel.",
         },
     ]
 
     tabela_urbanismo = [
         {
             "tema": "Zoneamento de uso",
-            "o_que_ver": "Se uso residencial/comercial e permitido na zona.",
-            "risco": "Uso nao compativel pode travar projeto ou licenca.",
+            "o_que_ver": "Se uso residencial/comercial é permitido na zona.",
+            "risco": "Uso não compatível pode travar projeto ou licença.",
         },
         {
-            "tema": "Taxa de ocupacao e recuos",
-            "o_que_ver": "Limite de area ocupada e afastamentos obrigatorios.",
+            "tema": "Taxa de ocupação e recuos",
+            "o_que_ver": "Limite de área ocupada e afastamentos obrigatórios.",
             "risco": "Projeto fora da regra gera retrabalho e custo extra.",
         },
         {
             "tema": "Permeabilidade do lote",
-            "o_que_ver": "Percentual minimo de solo permeavel.",
-            "risco": "Nao atendimento impede aprovacao e habite-se.",
+            "o_que_ver": "Percentual mínimo de solo permeável.",
+            "risco": "Não atendimento impede aprovação e habite-se.",
         },
         {
             "tema": "Gabarito / altura",
             "o_que_ver": "Limite de pavimentos permitido para a zona.",
-            "risco": "Restricao afeta viabilidade economica do projeto.",
+            "risco": "Restrição afeta viabilidade econômica do projeto.",
         },
     ]
 
@@ -521,18 +522,18 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
             "faixa": "3% a 8% da obra",
             "observacao": (
                 "Arquitetura, engenharia e "
-                "responsabilidade tecnica."
+                "responsabilidade técnica."
             ),
         },
         {
-            "item": "Alvara e aprovacoes",
+            "item": "Alvará e aprovações",
             "faixa": "R$ 1 mil a R$ 8 mil",
-            "observacao": "Prefeitura e eventuais taxas urbanisticas.",
+            "observacao": "Prefeitura e eventuais taxas urbanísticas.",
         },
         {
-            "item": "Ligacoes e regularizacao final",
+            "item": "Ligações e regularização final",
             "faixa": "R$ 3 mil a R$ 15 mil",
-            "observacao": "Agua, energia, cartorio e habite-se.",
+            "observacao": "Água, energia, cartório e habite-se.",
         },
     ]
 
@@ -571,7 +572,7 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
 
     checklist_bolso = [
         "Confirmar matricula atualizada e cadeia de propriedade.",
-        "Checar certidoes negativas e pendencias urbanisticas.",
+        "Checar certidões negativas e pend?ncias urbanísticas.",
         "Validar zoneamento e parametros de ocupacao do lote.",
         "Conferir custo total (imovel + taxas + adequacoes + reserva).",
         "Avaliar ruido, mobilidade e seguranca em dois horarios.",
@@ -746,7 +747,7 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         },
         {
             "item": "IPTU + taxa de lixo",
-            "faixa": "Variavel por metragem e localizacao",
+            "faixa": "Variável por metragem e localização",
             "impacto": "Encargo anual recorrente no custo total.",
             "fonte": "Prefeitura de Cuiaba (tributos imobiliarios)",
         },
@@ -839,23 +840,23 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         "parcela_estimada": (
             float_para_moeda(parcela_estimada) if parcela_estimada else None
         ),
-        "cub": float_para_moeda(cub) if cub else "Nao informado",
+        "cub": float_para_moeda(cub) if cub else "Não informado",
         "cub_competencia": contexto_cub.get("competencia_br", ""),
         "cub_competencia_curta": _formatar_competencia_curta(
             contexto_cub.get("competencia", "")
         ),
         "cub_cidade": contexto_cub.get("cidade", "Cuiaba-MT"),
         "cub_padrao_aplicado": contexto_cub.get("padrao", ""),
-        "fonte_cub": contexto_cub.get("fonte", "Nao informado"),
+        "fonte_cub": contexto_cub.get("fonte", "Não informado"),
         "valor_m2_compra": (
             float_para_moeda(valor_m2_compra)
-            if valor_m2_compra else "Nao informado"
+            if valor_m2_compra else "Não informado"
         ),
         "custo_estimado": (
             float_para_moeda(custo_estimado)
-            if custo_estimado else "Nao informado"
+            if custo_estimado else "Não informado"
         ),
-        "fonte_valor_m2_compra": contexto_m2.get("fonte", "Nao informado"),
+        "fonte_valor_m2_compra": contexto_m2.get("fonte", "Não informado"),
         "data_valor_m2_compra": _formatar_data_iso_br(
             contexto_m2.get("data_referencia", "")
         ),
@@ -902,7 +903,7 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         "tipo_financiamento": tipo_financiamento,
         "prazo": prazo,
         "renda_formatada": (
-            float_para_moeda(renda) if renda > 0 else "Nao informado"
+            float_para_moeda(renda) if renda > 0 else "Não informado"
         ),
         "sugestoes": sugestoes,
         "modo_teste": liberar_sem_pagamento,
@@ -920,7 +921,7 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
             "Base urbana municipal e dados internos Lokáo",
             (
                 "Referencia de valor m2: "
-                f"{contexto_m2.get('fonte', 'Nao informado')}"
+                f"{contexto_m2.get('fonte', 'Não informado')}"
             ),
             (
                 "Referencia de CUB: "
@@ -944,6 +945,28 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
 
 @router.route("/")
 def index():
+    df = carregar_bairros()
+    lista_bairros = sorted(
+        df["bairro"].dropna().astype(str).str.strip().unique().tolist()
+    )
+    if os.getenv("LOKAO_PILOTO_HOME", "0") == "1":
+        janela = obter_janela_teste()
+        return render_template(
+            "index.html",
+            bairros=lista_bairros,
+            modo_teste=True,
+            janela=janela,
+        )
+    return render_template(
+        "index.html",
+        bairros=lista_bairros,
+        modo_teste=False,
+        janela=None,
+    )
+
+
+@router.route("/oficial")
+def index_oficial():
     df = carregar_bairros()
     lista_bairros = sorted(
         df["bairro"].dropna().astype(str).str.strip().unique().tolist()
@@ -1059,6 +1082,20 @@ def piloto_admin():
         "piloto_admin.html",
         painel=painel,
     )
+
+
+@router.route("/piloto/admin/liberar-cpf")
+def piloto_admin_liberar_cpf():
+    chave = _texto_limpo(request.args.get("chave", ""), 160)
+    chave_esperada = os.getenv("LOKAO_METRICAS_KEY", "").strip()
+    if not chave_esperada or chave != chave_esperada:
+        abort(404)
+
+    cpf = _texto_limpo(request.args.get("cpf", ""), 20)
+    resultado = liberar_cpf_piloto(cpf)
+    if not resultado.get("ok"):
+        return jsonify(resultado), 400
+    return jsonify(resultado)
 
 
 @router.route("/relatorio", methods=["GET", "POST"])
