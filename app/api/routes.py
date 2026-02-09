@@ -22,6 +22,7 @@ from app.services.piloto_teste import (
     liberar_cpf_piloto,
     metricas_piloto,
     obter_janela_teste,
+    registrar_evento_publico,
     registrar_feedback,
     registrar_geracao_unica,
     token_piloto_valido,
@@ -992,6 +993,11 @@ def _texto_limpo(texto, limite=1000):
 
 @router.route("/piloto")
 def piloto():
+    registrar_evento_publico(
+        tipo="acesso_piloto",
+        ip=_ip_cliente(),
+        ua=request.headers.get("User-Agent", ""),
+    )
     df = carregar_bairros()
     lista_bairros = sorted(
         df["bairro"].dropna().astype(str).str.strip().unique().tolist()
@@ -1010,6 +1016,13 @@ def piloto_feedback():
     token = _texto_limpo(request.values.get("token", ""), 120)
     if not token or not token_piloto_valido(token):
         abort(404)
+
+    registrar_evento_publico(
+        tipo="acesso_feedback",
+        token=token,
+        ip=_ip_cliente(),
+        ua=request.headers.get("User-Agent", ""),
+    )
 
     enviado = feedback_ja_enviado(token)
     salvo = False
@@ -1123,6 +1136,12 @@ def relatorio():
     piloto_ativo = str(request.values.get("piloto", "")).strip() == "1"
 
     if token and token_piloto_valido(token):
+        registrar_evento_publico(
+            tipo="acesso_relatorio_piloto",
+            token=token,
+            ip=_ip_cliente(),
+            ua=request.headers.get("User-Agent", ""),
+        )
         contexto = _montar_contexto_relatorio(
             token_forcado=token,
             liberar_sem_pagamento=True,
@@ -1130,6 +1149,11 @@ def relatorio():
         return render_template("relatorio.html", **contexto)
 
     if piloto_ativo:
+        registrar_evento_publico(
+            tipo="envio_form_piloto",
+            ip=_ip_cliente(),
+            ua=request.headers.get("User-Agent", ""),
+        )
         cpf = _texto_limpo(request.values.get("cpf", ""), 20)
         resultado = registrar_geracao_unica(
             cpf=cpf,
@@ -1156,6 +1180,15 @@ def relatorio():
 
 @router.route("/relatorio/pdf")
 def relatorio_pdf():
+    token = _texto_limpo(request.args.get("token", ""), 120)
+    if token and token_piloto_valido(token):
+        registrar_evento_publico(
+            tipo="download_pdf_piloto",
+            token=token,
+            ip=_ip_cliente(),
+            ua=request.headers.get("User-Agent", ""),
+        )
+
     contexto = _montar_contexto_relatorio()
     if not contexto["liberado"]:
         abort(403, description="Pagamento necessario para gerar PDF.")

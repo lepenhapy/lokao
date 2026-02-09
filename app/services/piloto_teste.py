@@ -328,3 +328,15 @@ def liberar_cpf_piloto(cpf):
     )
     _salvar(dados)
     return {"ok": True, "token_removido": token}
+
+
+def registrar_evento_publico(tipo, token="", ip="", ua=""):
+    dados = _carregar()
+    _registrar_evento(
+        dados,
+        tipo=tipo,
+        token=str(token or "").strip(),
+        ip=ip,
+        ua=ua,
+    )
+    _salvar(dados)
