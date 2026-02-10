@@ -2,7 +2,7 @@ import os
 import csv
 import io
 import json
-from flask import Blueprint, abort, jsonify, render_template, request
+from flask import Blueprint, abort, jsonify, render_template, request, session
 import re
 import unicodedata
 from datetime import datetime
@@ -1018,19 +1018,46 @@ def piloto():
 @router.route("/piloto/feedback", methods=["GET", "POST"])
 def piloto_feedback():
     token = _texto_limpo(request.values.get("token", ""), 120)
-    if not token or not token_piloto_valido(token):
-        abort(404)
+    if not token:
+        token = _texto_limpo(session.get("piloto_feedback_token", ""), 120)
 
-    registrar_evento_publico(
-        tipo="acesso_feedback",
-        token=token,
-        ip=_ip_cliente(),
-        ua=request.headers.get("User-Agent", ""),
-    )
+    token_valido = bool(token) and token_piloto_valido(token)
+    if request.method == "GET":
+        if token_valido:
+            session["piloto_feedback_token"] = token
+        else:
+            abort(404)
+
+    erro_msg = ""
+    if request.method == "GET":
+        registrar_evento_publico(
+            tipo="acesso_feedback",
+            token=token,
+            ip=_ip_cliente(),
+            ua=request.headers.get("User-Agent", ""),
+        )
 
     enviado = feedback_ja_enviado(token)
     salvo = False
     if request.method == "POST" and not enviado:
+        if not token_valido:
+            registrar_evento_publico(
+                tipo="feedback_token_invalido",
+                ip=_ip_cliente(),
+                ua=request.headers.get("User-Agent", ""),
+            )
+            erro_msg = (
+                "Seu link de feedback expirou ou ficou invalido. "
+                "Abra novamente o relatorio e clique no link de feedback."
+            )
+            return render_template(
+                "piloto_feedback.html",
+                token="",
+                enviado=False,
+                salvo=False,
+                erro_msg=erro_msg,
+            )
+
         respostas = {
             "clareza": _texto_limpo(request.form.get("clareza", ""), 30),
             "utilidade": _texto_limpo(request.form.get("utilidade", ""), 30),
@@ -1076,6 +1103,7 @@ def piloto_feedback():
         token=token,
         enviado=enviado,
         salvo=salvo,
+        erro_msg=erro_msg,
     )
 
 

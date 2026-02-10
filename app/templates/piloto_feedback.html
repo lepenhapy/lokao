@@ -16,6 +16,7 @@
     .full { grid-column: 1 / -1; }
     button, .btn { margin-top: 14px; border: 0; border-radius: 10px; padding: 12px 14px; font-size: 15px; font-weight: 700; background: #1f3c88; color: #fff; cursor: pointer; text-decoration: none; display: inline-block; }
     .ok { margin: 12px 0; padding: 12px; border-radius: 10px; border: 1px solid #bbf7d0; background: #f0fdf4; color: #166534; }
+    .erro { margin: 12px 0; padding: 12px; border-radius: 10px; border: 1px solid #fecaca; background: #fef2f2; color: #991b1b; }
     @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -23,6 +24,9 @@
   <div class="wrap">
     <h1>Feedback do teste piloto</h1>
     <p class="small">Question&aacute;rio curto para melhorar clareza, utilidade e valor percebido do relat&oacute;rio.</p>
+    {% if erro_msg %}
+      <div class="erro">{{ erro_msg }}</div>
+    {% endif %}
 
     {% if enviado %}
       <div class="ok">Feedback registrado com sucesso. Obrigado por contribuir.</div>
