@@ -1,4 +1,7 @@
 import os
+import csv
+import io
+import json
 from flask import Blueprint, abort, jsonify, render_template, request
 import re
 import unicodedata
@@ -18,6 +21,7 @@ from app.services.pagamentos_mp import (
 )
 from app.services.piloto_teste import (
     dados_admin_piloto,
+    dados_brutos_piloto,
     feedback_ja_enviado,
     liberar_cpf_piloto,
     metricas_piloto,
@@ -1133,6 +1137,119 @@ def piloto_admin_liberar_cpf_form():
         "piloto_admin_liberar_cpf.html",
         chave=chave,
         resultado=resultado,
+    )
+
+
+def _validar_chave_admin():
+    chave = _texto_limpo(request.args.get("chave", ""), 160)
+    chave_esperada = os.getenv("LOKAO_METRICAS_KEY", "").strip()
+    if not chave_esperada or chave != chave_esperada:
+        abort(404)
+    return chave
+
+
+@router.route("/piloto/admin/export/json")
+def piloto_admin_export_json():
+    _validar_chave_admin()
+    dados = dados_brutos_piloto()
+    nome = f"lokao_piloto_export_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.json"
+    payload = json.dumps(dados, ensure_ascii=False, indent=2)
+    return (
+        payload,
+        200,
+        {
+            "Content-Type": "application/json; charset=utf-8",
+            "Content-Disposition": f'attachment; filename="{nome}"',
+        },
+    )
+
+
+@router.route("/piloto/admin/export/csv")
+def piloto_admin_export_csv():
+    _validar_chave_admin()
+    dados = dados_brutos_piloto()
+    out = io.StringIO()
+    writer = csv.writer(out)
+    writer.writerow(
+        [
+            "tipo_linha",
+            "ts",
+            "tipo_evento",
+            "cpf_hash",
+            "token",
+            "ip_hash",
+            "ua",
+            "clareza",
+            "utilidade",
+            "confianca",
+            "nps",
+            "tempo_form",
+            "uso_relatorio",
+            "etapa_mais_util",
+            "info_faltante",
+            "valor_percebido",
+            "faltou_algo",
+            "recomendaria",
+        ]
+    )
+
+    for ev in dados.get("eventos", []):
+        writer.writerow(
+            [
+                "evento",
+                ev.get("ts", ""),
+                ev.get("tipo", ""),
+                ev.get("cpf_hash", ""),
+                ev.get("token", ""),
+                ev.get("ip_hash", ""),
+                ev.get("ua", ""),
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+            ]
+        )
+
+    for fb in dados.get("feedback", []):
+        r = fb.get("respostas", {})
+        writer.writerow(
+            [
+                "feedback",
+                fb.get("ts", ""),
+                "",
+                fb.get("cpf_hash", ""),
+                fb.get("token", ""),
+                "",
+                "",
+                r.get("clareza", ""),
+                r.get("utilidade", ""),
+                r.get("confianca", ""),
+                r.get("nps", ""),
+                r.get("tempo_form", ""),
+                r.get("uso_relatorio", ""),
+                r.get("etapa_mais_util", ""),
+                r.get("info_faltante", ""),
+                r.get("valor_percebido", ""),
+                r.get("faltou_algo", ""),
+                r.get("recomendaria", ""),
+            ]
+        )
+
+    nome = f"lokao_piloto_export_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.csv"
+    return (
+        out.getvalue(),
+        200,
+        {
+            "Content-Type": "text/csv; charset=utf-8",
+            "Content-Disposition": f'attachment; filename="{nome}"',
+        },
     )
 
 

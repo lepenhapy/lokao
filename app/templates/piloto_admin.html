@@ -70,6 +70,8 @@
         href="/piloto/admin?chave={{ chave }}&todos=1"
         class="{% if mostrar_todos %}active{% endif %}"
       >Hist&oacute;rico completo</a>
+      <a href="/piloto/admin/export/json?chave={{ chave }}">Exportar JSON</a>
+      <a href="/piloto/admin/export/csv?chave={{ chave }}">Exportar CSV</a>
     </div>
     <div class="grid">
       <div class="kpi"><strong>Janela</strong>{{ painel.metricas.janela.inicio }} at&eacute; {{ painel.metricas.janela.fim }}</div>

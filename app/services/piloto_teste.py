@@ -361,3 +361,7 @@ def registrar_evento_publico(tipo, token="", ip="", ua=""):
         ua=ua,
     )
     _salvar(dados)
+
+
+def dados_brutos_piloto():
+    return _garantir_janela(_carregar())
