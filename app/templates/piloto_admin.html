@@ -31,6 +31,27 @@
       font-size: 12px;
       font-weight: 600;
     }
+    .links {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .links a {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: #1f3c88;
+      border-radius: 8px;
+      padding: 6px 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .links a.active {
+      background: #1f3c88;
+      border-color: #1f3c88;
+      color: #fff;
+    }
     @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
@@ -39,6 +60,16 @@
     <div class="topbar">
       <h1>Painel Admin do Piloto</h1>
       <span class="badge">Atualiza em <span id="countdown">60</span>s</span>
+    </div>
+    <div class="links">
+      <a
+        href="/piloto/admin?chave={{ chave }}"
+        class="{% if not mostrar_todos %}active{% endif %}"
+      >Recentes</a>
+      <a
+        href="/piloto/admin?chave={{ chave }}&todos=1"
+        class="{% if mostrar_todos %}active{% endif %}"
+      >Hist&oacute;rico completo</a>
     </div>
     <div class="grid">
       <div class="kpi"><strong>Janela</strong>{{ painel.metricas.janela.inicio }} at&eacute; {{ painel.metricas.janela.fim }}</div>

@@ -7,7 +7,12 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-ARQUIVO = BASE_DIR / "data" / "piloto_teste.json"
+LEGACY_ARQUIVO = BASE_DIR / "data" / "piloto_teste.json"
+DATA_DIR = Path(
+    os.getenv("LOKAO_DATA_DIR", str(BASE_DIR / "data"))
+).resolve()
+ARQUIVO = DATA_DIR / "piloto_teste.json"
+ARQUIVO_EVENTOS = DATA_DIR / "piloto_eventos.jsonl"
 DURACAO_DIAS = 2
 
 
@@ -38,6 +43,15 @@ def _estado_inicial():
 
 
 def _carregar():
+    if not ARQUIVO.exists() and LEGACY_ARQUIVO.exists():
+        try:
+            dados_legado = json.loads(
+                LEGACY_ARQUIVO.read_text(encoding="utf-8")
+            )
+            _salvar(dados_legado)
+            return dados_legado
+        except Exception:
+            pass
     if not ARQUIVO.exists():
         return _estado_inicial()
     try:
@@ -47,11 +61,19 @@ def _carregar():
 
 
 def _salvar(dados):
-    ARQUIVO.parent.mkdir(exist_ok=True)
-    ARQUIVO.write_text(
+    ARQUIVO.parent.mkdir(parents=True, exist_ok=True)
+    tmp = ARQUIVO.with_suffix(".tmp")
+    tmp.write_text(
         json.dumps(dados, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
+    tmp.replace(ARQUIVO)
+
+
+def _append_evento(evento):
+    ARQUIVO_EVENTOS.parent.mkdir(parents=True, exist_ok=True)
+    with ARQUIVO_EVENTOS.open("a", encoding="utf-8") as fp:
+        fp.write(json.dumps(evento, ensure_ascii=False) + "\n")
 
 
 def _normalizar_cpf(cpf):
@@ -111,17 +133,16 @@ def _janela_ativa(dados):
 
 
 def _registrar_evento(dados, tipo, cpf_hash="", token="", ip="", ua=""):
-    dados.setdefault("eventos", []).append(
-        {
-            "ts": _iso(_agora()),
-            "tipo": tipo,
-            "cpf_hash": cpf_hash,
-            "token": token,
-            "ip_hash": _hash_ip(ip),
-            "ua": str(ua or "")[:180],
-        }
-    )
-    dados["eventos"] = dados["eventos"][-5000:]
+    evento = {
+        "ts": _iso(_agora()),
+        "tipo": tipo,
+        "cpf_hash": cpf_hash,
+        "token": token,
+        "ip_hash": _hash_ip(ip),
+        "ua": str(ua or "")[:180],
+    }
+    dados.setdefault("eventos", []).append(evento)
+    _append_evento(evento)
 
 
 def obter_janela_teste():

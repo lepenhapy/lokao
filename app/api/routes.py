@@ -1090,10 +1090,16 @@ def piloto_admin():
     chave_esperada = os.getenv("LOKAO_METRICAS_KEY", "").strip()
     if not chave_esperada or chave != chave_esperada:
         abort(404)
-    painel = dados_admin_piloto()
+    mostrar_todos = str(request.args.get("todos", "")).strip() == "1"
+    if mostrar_todos:
+        painel = dados_admin_piloto(limite_feedback=5000, limite_eventos=5000)
+    else:
+        painel = dados_admin_piloto()
     return render_template(
         "piloto_admin.html",
         painel=painel,
+        mostrar_todos=mostrar_todos,
+        chave=chave,
     )
 
 
