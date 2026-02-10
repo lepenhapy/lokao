@@ -830,6 +830,18 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
             }
         )
 
+    feedback_form_url = _texto_limpo(
+        os.getenv("LOKAO_FEEDBACK_FORM_URL", ""),
+        600,
+    )
+    if liberar_sem_pagamento:
+        if feedback_form_url:
+            piloto_feedback_url = feedback_form_url
+        else:
+            piloto_feedback_url = f"/piloto/feedback?token={token}"
+    else:
+        piloto_feedback_url = ""
+
     return {
         "nome": nome,
         "bairro": bairro,
@@ -912,9 +924,7 @@ def _montar_contexto_relatorio(token_forcado="", liberar_sem_pagamento=False):
         ),
         "sugestoes": sugestoes,
         "modo_teste": liberar_sem_pagamento,
-        "piloto_feedback_url": (
-            f"/piloto/feedback?token={token}" if liberar_sem_pagamento else ""
-        ),
+        "piloto_feedback_url": piloto_feedback_url,
         "pago": pago,
         "liberado": pago,
         "token": token,
